@@ -54,10 +54,6 @@
 <img src="https://github-readme-stats.vercel.app/api/top-langs?username=JPEG111&layout=compact&langs_count=6&theme=dracula&hide_border=true&custom_title=I%20Vibe%20Code..." height="165" alt="Top languages" />
 <img src="https://streak-stats.demolab.com?user=JPEG111&theme=dracula&hide_border=true" height="165" alt="GitHub streak" />
 
-<img src="https://github-profile-trophy.vercel.app?username=JPEG111&theme=dracula&no-frame=true&no-bg=true&column=7&margin-w=6" alt="Trophies" />
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=JPEG111&theme=dracula&hide_border=true&area=true&radius=12" width="100%" alt="Contribution activity graph" />
-
 </div>
 
 ---
