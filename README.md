@@ -1,84 +1,77 @@
-<p align="center"></p>
-
-###
-
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=ts" height="39" alt="typescript logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="39" alt="nextjs logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=tailwind" height="39" alt="tailwindcss logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=graphql" height="39" alt="graphql logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=go" height="39" alt="go logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=rust" height="39" alt="rust logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=py" height="39" alt="python logo"  />
-  <img width="21" />
-  <img src="https://skillicons.dev/icons?i=aws" height="39" alt="amazonwebservices logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" height="39" alt="google logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="39" alt="vscode logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="39" alt="javascript logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="39" alt="html5 logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg" height="39" alt="debian logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" height="39" alt="blender logo"  />
-  <img width="21" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" height="39" alt="aftereffects logo"  />
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6366f1,100:10b981&height=180&section=header&text=Hi,%20I'm%20Skandar&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=36" alt="Hi, I'm Skandar" width="100%" />
+
+<a href="https://github.com/JPEG111">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1200&color=6366F1&center=true&vCenter=true&width=520&lines=Building+self-hosted+tools+for+real+hardware;Turning+old+phones+into+servers;Shipping+desktop+apps+for+Windows+%26+Linux" alt="Typing intro" />
+</a>
+
 </div>
 
-###
+---
+
+### 🚀 Featured project
+
+<table>
+<tr>
+<td width="80" align="center">
+  <a href="https://github.com/JPEG111/anydeploy-releases"><img src="https://raw.githubusercontent.com/JPEG111/anydeploy-releases/main/social-preview.png" width="72" alt="anyDeploy" /></a>
+</td>
+<td>
+
+**[anyDeploy](https://github.com/JPEG111/anydeploy-releases)**: a self-hosted PaaS desktop app. Deploy any GitHub repo to your own hardware: an old Android phone, a Raspberry Pi, a Linux box, or a Windows PC. No monthly bills, no telemetry.
+
+[![Download](https://img.shields.io/github/v/release/JPEG111/anydeploy-releases?label=download&style=flat-square&color=6366f1)](https://github.com/JPEG111/anydeploy-releases/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/JPEG111/anydeploy-releases/total?style=flat-square&color=10b981)](https://github.com/JPEG111/anydeploy-releases/releases)
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🧰 Tech stack
 
 <div align="center">
-  <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="discord logo"  />
-  <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="twitch logo"  />
-  <img src="https://img.shields.io/static/v1?message=Medium&logo=medium&label=&color=12100E&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="medium logo"  />
-  <img src="https://img.shields.io/static/v1?message=Ko-fi&logo=ko-fi&label=&color=F16061&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="ko-fi logo"  />
-  <img src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="twitter logo"  />
+
+**Languages**<br/>
+<img src="https://skillicons.dev/icons?i=ts,js,py,go,rust,html&perline=8" alt="TypeScript, JavaScript, Python, Go, Rust, HTML" />
+
+**Frameworks & cloud**<br/>
+<img src="https://skillicons.dev/icons?i=nextjs,tailwind,graphql,aws,gcp,cloudflare,debian&perline=8" alt="Next.js, Tailwind, GraphQL, AWS, Google Cloud, Cloudflare, Debian" />
+
+**Tools & creative**<br/>
+<img src="https://skillicons.dev/icons?i=vscode,visualstudio,blender,ae,ai&perline=8" alt="VS Code, Visual Studio, Blender, After Effects, Illustrator" />
+
 </div>
 
-###
+---
+
+### 📊 GitHub stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=JPEG111&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false&order=2&custom_title=I%20Vibe%20Code...." height="150" alt="languages graph"  />
-  <img src="https://streak-stats.demolab.com?user=JPEG111&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5&order=3" height="150" alt="streak graph"  />
-  <img src="https://github-profile-trophy.vercel.app?username=JPEG111&theme=dracula&column=-1&row=1&margin-w=8&margin-h=8&no-bg=false&no-frame=false&order=4" height="150" alt="trophy graph"  />
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=JPEG111&radius=16&theme=dracula&area=true&order=5" height="300" alt="activity-graph graph"  />
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=JPEG111&layout=compact&langs_count=6&theme=dracula&hide_border=true&custom_title=I%20Vibe%20Code..." height="165" alt="Top languages" />
+<img src="https://streak-stats.demolab.com?user=JPEG111&theme=dracula&hide_border=true" height="165" alt="GitHub streak" />
+
+<img src="https://github-profile-trophy.vercel.app?username=JPEG111&theme=dracula&no-frame=true&no-bg=true&column=7&margin-w=6" alt="Trophies" />
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=JPEG111&theme=dracula&hide_border=true&area=true&radius=12" width="100%" alt="Contribution activity graph" />
+
 </div>
 
-###
-
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=ai" height="40" alt="adobeillustrator logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=aiscript" height="40" alt="aiscript logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=cloudflare" height="40" alt="cloudflare logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=vscode" height="40" alt="vscode logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=visualstudio" height="40" alt="visualstudio logo"  />
-</div>
-
-###
+---
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
+  <img alt="Pac-Man eating my contribution graph" src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
 </picture>
 
-###
-
 <div align="center">
-  <img src="https://spotify-recently-played-readme.vercel.app/api?count=5" alt="Spotify recently played"  />
-</div>
 
-###
+<img src="https://komarev.com/ghpvc/?username=JPEG111&style=flat-square&color=6366f1&label=profile+views" alt="Profile views" />
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:6366f1&height=100&section=footer" width="100%" alt="" />
+
+</div>
