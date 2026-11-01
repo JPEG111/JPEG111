@@ -1,3 +1,4 @@
+import {renderMaze} from './profile-maze.mjs';
 // README-safe SVG illustrations. Frames are documented examples, never telemetry.
 const C={ink:'#f3f7ff',muted:'#94a8c2',line:'#263b53',lime:'#c5ff5c',cyan:'#54d9ff',purple:'#a18aff',red:'#ff816f'};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
@@ -9,11 +10,11 @@ const circle=(x,y,r,c,extra='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c
 const poly=(points,fill,stroke='#36516c',extra='')=>`<polygon points="${points.map(p=>p.join(',')).join(' ')}" fill="${fill}" stroke="${stroke}" ${extra}/>`;
 
 export const stateNames={
-  hero:['Source selected','Build executes','Route configured','Service available'],
-  anydeploy:['Source selected','Build on device','Connection interrupted','Route recovered'],
+  hero:['Ask the next question','Follow the thread','Reconsider the route','Build from the connection'],
+  anydeploy:['Choose the source and target','Build on the chosen device','Serve for the project type','Choose how to reach it'],
   orbs:['Queue discovered','Client unavailable','Action awaiting verification','Confirmed; advance queue'],
   instavault:['Media imported','Text extracted','Semantic links indexed','Matching results retrieved'],
-  jarvis:['Audio captured','Transcript ready','Tool selected','Sentence queued for speech'],
+  jarvis:['Listening to input','Transcribing the signal','Routing the request','Speaking the response'],
   lumina:['Typed document loaded','Block moved','Content reflows','Pages ready to print'],
   luminal:['Front camera','Three-quarter camera','Profile camera','Composite stage']
 };
@@ -24,80 +25,45 @@ export const stateCss=Array.from({length:4},(_,i)=>{
 }).join('')+'.state{opacity:0}.state.final{opacity:1}@media(prefers-reduced-motion:reduce){.state{animation:none!important;opacity:0!important}.state.final{opacity:1!important}}';
 
 export const sceneDefs=`<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#314d69"/><stop offset=".5" stop-color="#182b40"/><stop offset="1" stop-color="#0c1523"/></linearGradient><linearGradient id="glass" x2="0" y2="1"><stop stop-color="#19394a" stop-opacity=".8"/><stop offset="1" stop-color="#0a1728" stop-opacity=".95"/></linearGradient><radialGradient id="board-glow"><stop stop-color="#54d9ff" stop-opacity=".13"/><stop offset="1" stop-color="#54d9ff" stop-opacity="0"/></radialGradient>`;
+export const voiceCss='.voice-capture{animation:capture 16s linear infinite}.voice-play{animation:playback 16s linear infinite}@keyframes capture{0%{width:0}24.99%,100%{width:570px}}@keyframes playback{0%,74.99%{width:0}75%{width:0}99.99%{width:570px}100%{width:0}}@media(prefers-reduced-motion:reduce){.voice-capture,.voice-play{animation:none!important;width:570px!important}}';
 
 const frames=(key,fn)=>stateNames[key].map((name,i)=>`<g class="state state-${i}${i===3?' final':''}" data-state="${i}" aria-label="${esc(name)}">${fn(i,name)}</g>`).join('');
 const caption=(i,name,c=C.cyan)=>label(18,405,`${String(i+1).padStart(2,'0')} / ${name.toUpperCase()}`,16,c);
 const at=(body,x,y,w=600,h=430)=>`<g transform="translate(${x} ${y}) scale(${w/600} ${h/430})">${body}</g>`;
 const check=(x,y,c=C.lime)=>line(`M${x} ${y}l6 6 12-15`,c);
 
-// Orthographic projection and shaded faces, with real depth and surface details.
-const P=(x,y,z)=>[300+(x-z)*.82,282+(x+z)*.38-y*.96];
-function cuboid(x,y,z,w,h,d,top='url(#metal)',side='#142438',front='#0c1626',edge='#36516c'){
-  const a=P(x,y+h,z),b=P(x+w,y+h,z),c=P(x+w,y+h,z+d),e=P(x,y+h,z+d);
-  const f=P(x,y,z+d),g=P(x+w,y,z+d),j=P(x+w,y,z);
-  return poly([e,c,g,f],front,edge)+poly([b,j,g,c],side,edge)+poly([a,b,c,e],top,edge);
-}
-const surface=(x,y,z,w,d,fill,stroke)=>poly([P(x,y,z),P(x+w,y,z),P(x+w,y,z+d),P(x,y,z+d)],fill,stroke);
-function circuit(points,c='#2b5966') {return line(points.map((p,i)=>(i?'L':'M')+P(...p).join(' ')).join(' '),c);}
+export function mazeScene(x,y,w,h){return at(renderMaze(),x,y,w,h);}
 
-export function hardwareScene(x,y,w,h){
-  let b='<ellipse cx="300" cy="303" rx="290" ry="150" fill="url(#board-glow)"/>';
-  b+=cuboid(-170,-24,-140,340,22,280,'#122c34','#0a1b2b','#0a1420','#28485a');
-  for(let i=0;i<9;i++){
-    const xx=-145+i*34;
-    b+=circuit([[xx,0,120],[xx,0,55],[-45+i*10,0,22]],i%2?'#315347':'#22546c');
-    b+=circuit([[-145,0,-100+i*20],[-96,0,-100+i*20],[-48,0,-28+i*7]]);
-  }
-  // Memory banks, control chips, connectors and underside pins are separate solids.
-  for(let i=0;i<4;i++){
-    b+=cuboid(90+i*17,1,-80,11,30,115,'#345744','#162e2c','#132624','#477668');
-    for(let j=0;j<5;j++)b+=cuboid(91+i*17,22,-70+j*21,8,10,13,'#456b65','#193b3d','#0b252c');
-  }
-  for(let i=0;i<5;i++)b+=cuboid(-145+i*29,2,88,20,15,22,'#39556a','#192f43','#0b2030');
-  for(let i=0;i<6;i++)b+=cuboid(-148,1,-110+i*24,18,19,17,'#546478','#1a2a3c','#162236');
-  b+=cuboid(-71,3,-58,126,19,118,'#243c50','#1b2c40','#0d1e30');
-  b+=cuboid(-57,42,-44,98,17,90,'#436477','#203e54','#172c43');
-  b+=surface(-45,60,-32,74,66,'#1d3e4c',C.cyan);
-  // Exploded heat spreader and nine individually shaded cooling fins.
-  for(let i=0;i<4;i++)b+=circuit([[-52+i*28,65,-39],[-52+i*28,97,-39]],'#38526a');
-  b+=cuboid(-65,99,-51,114,10,103,'#3b5a70','#203649','#152b3d');
-  for(let i=0;i<9;i++)b+=cuboid(-60+i*12,109,-45,5,27,92,'#718d9f','#2b465d','#1b3046','#4e7089');
-  // Raised storage slab and I/O bridge.
-  b+=cuboid(-115,2,-105,73,12,36,'#29465b','#1b3046','#0b1e30');
-  b+=cuboid(45,0,86,113,22,34,'#374e65','#1b2d43','#132236');
-  for(let i=0;i<5;i++)b+=surface(52+i*20,23,92,12,21,'#08111d','#5b7b88');
-  b+=frames('hero',(i,name)=>{
-    let s=rect(20,10,560,51,'#0b1624',i===3?C.lime:C.cyan,8)+label(37,42,name.toUpperCase(),20,i===3?C.lime:C.cyan);
-    const area=[[-115,15,-105,73,36],[-45,61,-32,74,66],[45,24,86,113,34],[-45,61,-32,74,66]][i];
-    s+=surface(...area,'#c5ff5c30',i===0?C.cyan:C.lime);
-    if(i===1)s+=circuit([[-95,17,-90],[-35,61,-20],[10,61,16]],C.lime);
-    if(i>=2)s+=circuit([[15,2,22],[55,2,65],[105,25,98]],i===3?C.lime:C.cyan);
-    const labels=[['SOURCE','BUILD','ROUTE','RUN'],['READY','ACTIVE','WAIT','WAIT'],['READY','DONE','ACTIVE','WAIT'],['READY','DONE','READY','READY']][i];
-    if(i===0){labels.splice(0,4,'ACTIVE','WAIT','WAIT','WAIT');}
-    ['REPO','CPU','PORT','APP'].forEach((n,k)=>{s+=label(25+k*147,365,n,15,C.muted)+label(25+k*147,384,labels[k],14,labels[k]==='WAIT'?C.muted:C.lime);});
-    return s;
-  });
-  return at(b,x,y,w,h);
-}
-
-function device(x,y,on){
-  return poly([[x,y+30],[x+84,y],[x+139,y+32],[x+53,y+66]],'#29465c','#5b8095')+poly([[x+53,y+66],[x+139,y+32],[x+139,y+137],[x+53,y+176]],'#13283b','#3d6078')+poly([[x,y+30],[x+53,y+66],[x+53,y+176],[x,y+140]],'#0b1728','#35546e')+line(`M${x+66} ${y+87}l57-27m-57 48 57-27m-57 48 57-27`,'#3d6374')+circle(x+66,y+149,4,on?C.lime:C.muted);
-}
 function deployment(){
-  let b=poly([[22,310],[300,190],[578,310],[300,403]],'#081421','#1b3044');
-  b+=device(56,170,true)+device(266,228,true);
-  b+=label(70,164,'SOURCE',15,C.cyan)+label(282,219,'YOUR DEVICE',15,C.lime);
+  let b=rect(12,16,326,331,'#0b1422',C.line,14)+label(29,45,'anyDeploy / DESKTOP',17,C.lime)+line('M12 59H338');
+  b+=poly([[572,72],[580,80],[580,325],[572,333]],'#172a3e','#314d65');
+  b+=rect(402,65,170,270,'#182a3c','#58758b',20)+rect(411,76,152,246,'#071321','#233e54',13)+rect(457,80,60,8,'#263e50','#263e50',4);
+  b+=label(487,109,'ANDROID / TERMUX',11,C.cyan,'text-anchor="middle"');
+  b+=line('M338 195H402',C.line)+label(340,179,'TARGET',11,C.muted);
   b+=frames('anydeploy',(i,name)=>{
-    let s=rect(330,23,245,104,'url(#glass)',i===2?C.red:i===3?C.lime:C.line,10);
-    s+=label(347,51,'PUBLIC ENDPOINT',14,C.muted)+text(347,87,['NOT BUILT','BUILDING','RECONNECTING','ROUTE READY'][i],21,i===2?C.red:i===3?C.lime:C.ink,'font-weight="750"');
-    s+=line('M194 260L271 294',i===0?C.muted:C.lime);
-    s+=line('M402 285L462 251V127',i===2?C.red:i===3?C.lime:C.line,i===2?'stroke-dasharray="6 9"':'');
-    if(i===2)s+=line('M450 193l24 24m0-24-24 24',C.red);
-    else if(i===3)s+=check(541,102);
-    s+=rect(26,26,253,100,'#0c1928',C.line,8)+label(43,51,'DEPLOYMENT RECEIPT',14,C.cyan);
-    const rows=[['repository selected','awaiting build'],['process created','proxy configured'],['process retained','route unavailable'],['same process retained','route restored']][i];
-    rows.forEach((r,j)=>s+=label(43,80+j*25,r,16,j?C.muted:C.ink));
-    return s+caption(i,name,i===2?C.red:C.lime);
+    let f=label(30,87,['SOURCE + TARGET','BUILD ON TARGET','SERVE BY PROJECT TYPE','REACHABILITY'][i],17,C.lime);
+    if(i===0){
+      f+=rect(29,108,291,69,'#142338',C.line,7)+label(42,130,'SOURCE',12,C.muted)+text(42,159,'GitHub repo / ZIP',21);
+      f+=rect(29,191,291,69,'#152d31',C.lime,7)+label(42,213,'SELECTED DEVICE',12,C.muted)+text(42,242,'Android / Termux',21,C.lime);
+      f+=label(29,306,'Desktop controls the deployment.',14,C.muted);
+      f+=label(487,185,'TARGET',19,C.cyan,'text-anchor="middle"')+label(487,216,'CONNECTED',13,C.lime,'text-anchor="middle"');
+    }else if(i===1){
+      ['DETECT PROJECT','INSTALL DEPENDENCIES','BUILD OUTPUT'].forEach((v,k)=>f+=rect(29,110+k*59,291,44,'#122539',k===2?C.lime:C.line,7)+label(42,138+k*59,v,16,k===2?C.lime:C.ink));
+      f+=label(29,315,'Source is processed on the device.',14,C.muted);
+      ['detect','install','build'].forEach((v,k)=>f+=label(429,168+k*36,'> '+v,15,k===2?C.lime:C.cyan));
+    }else if(i===2){
+      f+=label(29,114,'CONDITIONAL RUNTIME PATHS',12,C.muted);
+      f+=rect(29,130,291,59,'#1c352a',C.lime,7)+label(42,155,'STATIC FILES',14,C.lime)+text(42,178,'Build output → nginx',18);
+      f+=rect(29,204,291,59,'#101b2b',C.line,7)+label(42,229,'APP / API',14,C.muted)+text(42,252,'Process → PM2',18,C.muted);
+      f+=label(29,310,'This example is a static site.',14,C.lime);
+      f+=label(487,171,'STATIC',19,C.lime,'text-anchor="middle"')+label(487,205,'nginx',23,C.ink,'text-anchor="middle"')+label(487,240,'serving files',12,C.muted,'text-anchor="middle"');
+    }else{
+      ['LOCAL / LAN','TEMPORARY LINK','CUSTOM DOMAIN'].forEach((v,k)=>f+=rect(29,111+k*57,291,43,k===0?'#1c352a':'#101b2b',k===0?C.lime:C.line,7)+label(42,139+k*57,v,16,k===0?C.lime:C.muted));
+      f+=label(29,310,'Mode controls reachability.',14,C.muted);
+      f+=label(487,174,'LAN',26,C.lime,'text-anchor="middle"')+label(487,211,'READY',19,C.ink,'text-anchor="middle"')+check(477,253);
+    }
+    f+=label(26,375,'EXAMPLE / REPOSITORY → LOCAL STATIC SITE',14,C.muted);
+    return f+caption(i,name,C.lime);
   });
   return b;
 }
@@ -155,19 +121,36 @@ export function projectScene(key,x,y,w,h){
   return at(render(),x,y,w,h);
 }
 
+const inputEnvelope=[2,3,4,8,13,27,44,29,17,8,4,12,31,50,42,22,9,3,6,20,37,53,32,12,5,11,25,40,31,15,7,4,14,29,17,3,2,2];
+const speechEnvelope=[2,8,20,38,51,36,14,8,4,10,23,41,30,16,5,3,8,25,45,50,28,12,4,9,24,37,22,7,3,12,29,43,25,9,3,2,2,2];
+export const audioExample={inputEnvelope,speechEnvelope};
+function audioWave(values,active,colour){
+  let out='';const centre=168;
+  values.forEach((amplitude,k)=>{
+    const x=34+k*14.2,half=amplitude*(active?1:.42);
+    if(active)out+=`<rect x="${x-4}" y="${centre-half-2}" width="8" height="${half*2+4}" rx="4" fill="${colour}" opacity=".12"/>`;
+    out+=`<rect x="${x-2}" y="${centre-half}" width="4" height="${half*2}" rx="2" fill="${colour}" opacity="${active?'.92':'.32'}"/>`;
+  });
+  return out;
+}
 function voiceScene(){
-  return frames('jarvis',(i,name)=>{
-    let s=rect(12,12,576,355,'#0b1725',C.line,16)+label(32,45,'EXAMPLE / VOICE → TOOL → SPEECH',16,C.cyan);
-    const phases=['AUDIO BUFFER','TRANSCRIPT','TOOL ROUTE','SPEECH QUEUE'];
-    phases.forEach((z,k)=>s+=rect(32+k*138,72,124,38,k===i?'#173b48':'#0d1b2b',k===i?C.cyan:C.line,6)+label(94+k*138,97,z,11,k===i?C.cyan:C.muted,'text-anchor="middle"'));
-    if(i===0){
-      for(let k=0;k<5;k++)s+=rect(40+k*105,148,87,64,'#14374a',C.cyan,6)+label(83+k*105,187,'CHUNK '+(k+1),12,C.cyan,'text-anchor="middle"');
-      s+=label(40,258,'Captured speech waits for transcription.',17);
-    }else if(i===1){s+=text(40,185,'“Open the project.”',32,C.ink,'font-weight="700"')+label(40,237,'WHISPER → TEXT',18,C.cyan);}
-    else if(i===2){s+=label(40,167,'TOOL SELECTED',17,C.cyan)+text(40,215,'open_project()',30,C.lime,'class="mono"')+label(40,258,'Tool result becomes answer context.',17);}
-    else {s+=rect(39,140,518,67,'#17352e',C.lime,8)+text(58,181,'“The project is open.”',29,C.lime)+label(40,254,'SENTENCE READY → TTS → PLAYBACK',17,C.cyan);}
-    s+=label(32,339,'CHUNKS PRESERVE ORDER THROUGH THE PIPELINE',14,C.muted);
-    return s+caption(i,name);
+  const clips='<defs><clipPath id="voice-captured" clipPathUnits="userSpaceOnUse"><rect x="25" y="100" width="0" height="130" class="voice-capture"/></clipPath><clipPath id="voice-played" clipPathUnits="userSpaceOnUse"><rect x="25" y="100" width="0" height="130" class="voice-play"/></clipPath></defs>';
+  return clips+frames('jarvis',(i,name)=>{
+    const activeColour=i===3?C.lime:C.cyan;
+    let f=rect(12,12,576,355,'#091523',C.line,16)+label(31,43,'JARVIS / VOICE PIPELINE',17,C.cyan);
+    f+=label(31,77,i===3?'TTS OUTPUT':'MIC INPUT / CAPTURED AUDIO',14,C.muted)+label(567,77,['LISTEN','TRANSCRIBE','ROUTE','SPEAK'][i],15,activeColour,'text-anchor="end"');
+    f+=line('M30 168H568','#203748');
+    const wave=audioWave(i===3?speechEnvelope:inputEnvelope,i===0||i===3,activeColour);
+    f+=i===0||i===3?'<g clip-path="url(#'+(i===0?'voice-captured':'voice-played')+')">'+wave+'</g>':wave;
+    f+=label(31,237,'ILLUSTRATIVE SIGNAL / EXAMPLE REQUEST',12,C.muted);
+    ['MIC','WHISPER','MODEL / TOOL','SPEECH'].forEach((phase,k)=>{
+      const x=30+k*139;
+      f+=rect(x,257,124,39,k===i?'#153745':'#0e1a2a',k===i?activeColour:C.line,7)+label(x+62,282,phase,12,k===i?activeColour:C.muted,'text-anchor="middle"');
+      if(k<3)f+=line('M'+(x+124)+' 277h15',k<i?activeColour:C.line);
+    });
+    const detail=['Wake word → capture the request','Whisper → “Open Chrome.”','open_app("chrome") → tool result','Sentence → TTS → audio playback'][i];
+    f+=label(31,333,detail,16,i===2?C.lime:C.ink);
+    return f+caption(i,name,activeColour);
   });
 }
 

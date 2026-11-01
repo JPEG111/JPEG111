@@ -11,6 +11,7 @@ on:
       - tools/render-commit-counter.mjs
       - tools/render-profile.mjs
       - tools/profile-scenes.mjs
+      - tools/profile-maze.mjs
       - tools/collect-account-metrics.mjs
       - .github/workflows/profile-activity.yml
 

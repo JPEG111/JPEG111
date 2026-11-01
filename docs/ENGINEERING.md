@@ -6,7 +6,9 @@ The projects share an interest in systems with several moving parts: infrastruct
 
 **Released desktop app · [project and downloads](https://github.com/JPEG111/anydeploy-releases)**
 
-A deployment goes beyond running a build command. Source detection, the build directory, the running process, reverse-proxy configuration and the public route need to agree. anyDeploy brings nginx, PM2, TLS and optional Cloudflare Tunnel / DNS into the desktop workflow across supported hardware.
+A deployment starts in the desktop app with a GitHub repository or ZIP and a selected target device. The source is processed and built on that target. Static build output can be served by nginx; a long-running application needs its process managed separately. The app offers local/LAN reachability, a temporary link or a configured domain, so a public tunnel is not a prerequisite for every deployment.
+
+Source detection, build output, any running process, reverse-proxy configuration and the chosen route need to agree. The profile diagram follows a local static-site example and shows the alternative process and routing paths as conditional choices.
 
 The Android path adds another layer: Termux and its Linux environment have different filesystem, service and shell assumptions from a conventional server. Earlier work had to distinguish a source checkout from the live application path and ensure service checks saw the right runtime environment.
 

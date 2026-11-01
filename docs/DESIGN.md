@@ -16,11 +16,11 @@ Each project has its own four-state example. All affected objects, text and sele
 
 | Panel | Example state sequence | Visual model |
 | :--- | :--- | :--- |
-| Hero | Source → build → route → service | Exploded orthographic motherboard, memory, storage, I/O and cooling assembly; active component follows the stage |
-| anyDeploy | Source → device build → connection loss → recovered route | Shaded device topology, retained-process receipt and endpoint state |
+| Hero | Ask → trace → reconsider → build | Seeded 3D maze; an actual search follows open passages, backtracks from a dead end and displays a valid solved route |
+| anyDeploy | Choose source/target → build on device → serve by project type → choose reachability | Desktop controller and Android target; a static-site example selects nginx and local/LAN access, with conditional process and optional external-route choices |
 | Orbs | Queue discovered → client lost → uncertain action → confirmation | Client inspector, queue entries, retained deadline and verified advancement |
 | InstaVault | Import → enrichment → semantic links → search result | Media tiles become a connected local index and a matching result |
-| JARVIS | Audio chunks → transcript → selected tool → speech queue | Ordered input chunks, example utterance, tool route and output sentence |
+| JARVIS | Listen → transcribe → route → speak | A persistent audio waveform with separate illustrative input/output envelopes; active pipeline nodes and labels follow each phase; example tool uses the source's open_app function |
 | Lumina | Document model → block movement → reflow → print | Layout override changes document geometry and creates a second page |
 | Luminal | Front → three-quarter → profile → composite | Actual projected subject geometry changes with the named camera angle; source preparation is reused |
 
@@ -52,3 +52,11 @@ The owner explicitly approved publication of the aggregate private count. A smal
 The local refresh runs every twelve hours and at sign-in, then dispatches the existing public refresh. It uses the owner's existing GitHub CLI sign-in and a hash-pinned standalone collector on that computer; it never executes newly changed repository code with that credential. The private count can pause while the computer is off, signed out, offline or needs authentication. Its visible timestamp always shows when it was actually verified. The regular public job continues independently and preserves that original private timestamp.
 
 The in-panel language badge ranks GitHub-classified CODE BYTES across owned, public, non-fork repositories. It is not repository count, commit count, time spent coding or the full toolchain. Name, colour, icon and percentage change with the ranking. Common language symbols have inline vector/text tiles; unknown languages use their initials. Missing/incomplete language data fails without changing the last successful published panels. An account with no classified public code shows an explicit unclassified state.
+
+## Narrative and visual identity
+
+The hero maze represents following a question and revising a route. It uses a deterministic depth-first maze generator and an actual search trace. Walls are shaded in an orthographic projection; the highlighted paths cannot cross closed walls. The final frame is a valid entry-to-exit route. Its states illustrate a process, not claimed brain telemetry.
+
+The JARVIS waveform is restored in every state. Its envelopes are illustrative sample signals, with the active input/output state identified; no audio amplitude or latency measurement is claimed. Source inspection confirmed the app's open_app tool, sentence/audio queues and speech-model unloading paths. The anyDeploy model now follows actual source/ZIP input, target selection, on-device building, conditional static/process serving and local/temporary/domain reachability. The static-site example does not show a process or proxy already created while its build is still underway.
+
+Writing uses a short opening, specific engineering examples, links to detail, and native disclosures. Cube, the Andoria/EFNETWORK archive and memory questions describe the author's learning and research process. The archive count is a dated artifact snapshot. Source claims and assistant praise do not become established achievements. Sensitive personal biography and raw conversation text remain outside the profile.

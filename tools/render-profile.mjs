@@ -1,7 +1,7 @@
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
-import {stateCss,sceneDefs,hardwareScene,projectScene,labScene,sectionScene} from './profile-scenes.mjs';
+import {stateCss,voiceCss,sceneDefs,mazeScene,projectScene,labScene,sectionScene} from './profile-scenes.mjs';
 const C={bg:'#05070d',panel:'#0b111d',border:'#243143',muted:'#9baac1',ink:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff',purple:'#9780ff'};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;');
 const tx=(x,y,s,n=28,color=C.ink,extra='')=>'<text x="'+x+'" y="'+y+'" font-size="'+n+'" fill="'+color+'" '+extra+'>'+esc(s)+'</text>';
@@ -10,23 +10,23 @@ const box=(x,y,w,h,fill=C.panel,stroke=C.border,rx=18)=>'<rect x="'+x+'" y="'+y+
 const ln=(d,color=C.border,extra='')=>'<path d="'+d+'" fill="none" stroke="'+color+'" '+(extra.includes('stroke-width=')?'':'stroke-width="2" ')+extra+'/>';
 const pill=(x,y,w,s,color=C.lime)=>box(x,y,w,42,'#101823',color,21)+mono(x+w/2,y+28,s,17,color,'text-anchor="middle"');
 function wrap(w,h,title,body){
-return '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="img" aria-labelledby="title desc"><title id="title">'+esc(title)+'</title><desc id="desc">Release and activity values are dated public GitHub snapshots. Animated project scenes are labelled example walkthroughs with coordinated input, processing and output states; they are not live application telemetry.</desc><defs><linearGradient id="border"><stop stop-color="#53617d"/><stop offset=".5" stop-color="#152239"/><stop offset="1" stop-color="#54d9ff" stop-opacity=".55"/></linearGradient><radialGradient id="halo"><stop stop-color="#54d9ff" stop-opacity=".18"/><stop offset="1" stop-color="#54d9ff" stop-opacity="0"/></radialGradient>'+sceneDefs+'<pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#273950" stroke-opacity=".28"/></pattern><clipPath id="clip"><rect x="2" y="2" width="'+(w-4)+'" height="'+(h-4)+'" rx="28"/></clipPath></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}'+stateCss+'</style><g clip-path="url(#clip)"><rect width="'+w+'" height="'+h+'" fill="'+C.bg+'"/><rect width="'+w+'" height="'+h+'" fill="url(#grid)"/>'+body+'</g><rect x="1" y="1" width="'+(w-2)+'" height="'+(h-2)+'" rx="28" fill="none" stroke="url(#border)" stroke-width="2"/></svg>\n';
+return '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="img" aria-labelledby="title desc"><title id="title">'+esc(title)+'</title><desc id="desc">Release and activity values are dated public GitHub snapshots. Animated project scenes are labelled example walkthroughs with coordinated input, processing and output states; they are not live application telemetry.</desc><defs><linearGradient id="border"><stop stop-color="#53617d"/><stop offset=".5" stop-color="#152239"/><stop offset="1" stop-color="#54d9ff" stop-opacity=".55"/></linearGradient><radialGradient id="halo"><stop stop-color="#54d9ff" stop-opacity=".18"/><stop offset="1" stop-color="#54d9ff" stop-opacity="0"/></radialGradient>'+sceneDefs+'<pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#273950" stroke-opacity=".28"/></pattern><clipPath id="clip"><rect x="2" y="2" width="'+(w-4)+'" height="'+(h-4)+'" rx="28"/></clipPath></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}'+stateCss+(body.includes('voice-capture')?voiceCss:'')+'</style><g clip-path="url(#clip)"><rect width="'+w+'" height="'+h+'" fill="'+C.bg+'"/><rect width="'+w+'" height="'+h+'" fill="url(#grid)"/>'+body+'</g><rect x="1" y="1" width="'+(w-2)+'" height="'+(h-2)+'" rx="28" fill="none" stroke="url(#border)" stroke-width="2"/></svg>\n';
 }
 function head(w,num,tag){return mono(42,51,num+' / '+tag,19,C.cyan)+mono(w-42,51,'JPEG111',19,C.muted,'text-anchor="end"')+ln('M42 78H'+(w-42));}
 function hero(m,summary){
 const w=m?720:1440,h=m?1110:820;
 let b=head(w,'00','SKANDAR / SOFTWARE SYSTEMS');
-b+=tx(42,m?188:248,'FOLLOW THE',m?73:118,C.ink,'font-weight="850" letter-spacing="-3"');
-b+=tx(42,m?285:400,'CONNECTIONS.',m?66:105,C.lime,'font-weight="850" letter-spacing="-3"');
-b+=tx(46,m?363:476,'Infrastructure. Local AI. Visual tools.',m?28:34,C.muted);
-b+=tx(46,m?410:526,'Built across the whole system.',m?29:34,C.muted);
-b+=hardwareScene(m?42:830,m?470:150,m?636:555,m?430:440);
-b+=mono(m?42:845,m?925:625,'EXAMPLE / SOURCE → BUILD → ROUTE → RUN',m?15:16,C.cyan);
+b+=tx(42,m?188:248,'ASK DEEPER.',m?73:110,C.ink,'font-weight="850" letter-spacing="-3"');
+b+=tx(42,m?285:400,'BUILD FURTHER.',m?66:96,C.lime,'font-weight="850" letter-spacing="-3"');
+b+=tx(46,m?363:476,'One question opens another.',m?28:34,C.muted);
+b+=tx(46,m?410:526,'I turn the trail into working tools.',m?28:32,C.muted);
+b+=mazeScene(m?42:830,m?470:150,m?636:555,m?430:440);
+b+=mono(m?42:845,m?925:625,'ILLUSTRATED SEARCH / EXPLORE → RECONSIDER → CONNECT',m?12:13,C.cyan);
 const py=m?990:653;
 if(m){b+=pill(42,py,285,summary.releases.length+' PUBLIC RELEASES')+pill(347,py,330,'MORE IN THE LAB',C.cyan);}
 else b+=pill(46,py,302,summary.releases.length+' PUBLIC RELEASES')+pill(370,py,300,'VOICE + VISION',C.cyan)+pill(692,py,260,'VISUAL SYSTEMS',C.purple);
 b+=ln('M42 '+(h-54)+'H'+(w-42))+mono(42,h-24,'WINDOWS / LINUX / YOUR HARDWARE',m?17:19)+mono(w-42,h-24,'EXPLORE ↓',m?17:19,C.lime,'text-anchor="end"');
-return wrap(w,h,'Skandar / JPEG111. Infrastructure, local AI and visual software.',b);
+return wrap(w,h,'Skandar / JPEG111. Ask deeper. Build further. A maze explores, backtracks and finds a valid route.',b);
 }
 const projects={
 anydeploy:{n:'01',name:'anyDeploy',subtitle:'A deployment control plane for your own hardware.',mobileSub:['A deployment control plane','for your own hardware.'],color:C.lime,rows:[['PROVISION','nginx / PM2 / SSL'],['EXPOSE','Cloudflare Tunnel / DNS'],['RECOVER','Resume after Wi-Fi drops']],footer:['ANDROID / TERMUX','RASPBERRY PI','LINUX','WINDOWS / WSL2']},
@@ -43,7 +43,7 @@ const release=summary.releases.find(r=>r.key===key);if(!release&&key!=='instavau
 if(m)b+=mono(48,585,release?release.tag+' / '+release.files+' RELEASE FILES':'LOCAL BUILD / IMPLEMENTATION NOTES',19,p.color);
 if(!m){b+=box(46,565,680,137,'#090e17',C.border,14)+mono(67,597,release?'PUBLIC RELEASE / '+summary.date:'LOCAL BUILD / CASE STUDY',16,C.muted)+tx(67,643,release?release.tag:'Media → searchable library',release?Math.min(38,600/(release.tag.length*.65)):30,p.color,'font-weight="750"')+mono(67,678,release?release.files+' RELEASE FILES / '+release.published:'IMPLEMENTATION NOTES BELOW',18,C.muted);}
 b+=projectScene(key,m?42:820,m?610:200,m?636:580,m?355:450);
-b+=mono(m?42:842,m?981:677,{anydeploy:'EXAMPLE / RECONNECT AND RESUME',orbs:'EXAMPLE / VERIFY BEFORE ADVANCING',instavault:'EXAMPLE / MEDIA TO SEARCH'}[key],m?16:17,p.color);
+b+=mono(m?42:842,m?981:677,{anydeploy:'APP FLOW / SOURCE → TARGET → BUILD → ROUTE',orbs:'EXAMPLE / VERIFY BEFORE ADVANCING',instavault:'EXAMPLE / MEDIA TO SEARCH'}[key],m?16:17,p.color);
 const foot=m?1001:740;
 p.footer.forEach((s,i)=>{const x=m?42+(i%2)*330:46+i*340;const y=m?foot+Math.floor(i/2)*56:foot;b+=pill(x,y,m?305:320,s,i%2?C.muted:p.color);});
 b+=mono(w-42,m?1150:798,key==='instavault'?'READ IMPLEMENTATION NOTES ↓':'OPEN PROJECT / RELEASES ↗',17,p.color,'text-anchor="end"');

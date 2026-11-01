@@ -15,13 +15,14 @@
 </a>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero-mobile.svg?v=3">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero.svg?v=3" width="100%" alt="Skandar / JPEG111. Infrastructure, local AI and visual software.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero-mobile.svg?v=5">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero.svg?v=5" width="100%" alt="Skandar / JPEG111. Ask deeper. Build further. A maze explores, backtracks and finds a valid route.">
 </picture>
 
 <p align="center">
   <a href="#user-content-selected-systems"><kbd>Selected software</kbd></a> &nbsp;
   <a href="#user-content-the-lab"><kbd>Inside the lab</kbd></a> &nbsp;
+  <a href="#user-content-behind-the-builds"><kbd>Behind the builds</kbd></a> &nbsp;
   <a href="#user-content-tech-stack"><kbd>Languages & tools</kbd></a> &nbsp;
   <a href="#user-content-next-coordinates"><kbd>Roadmap</kbd></a> &nbsp;
   <a href="#user-content-github-activity"><kbd>Arcade</kbd></a>
@@ -33,9 +34,17 @@
 
 <sub>Netherlands · Desktop software / infrastructure / AI</sub>
 
-I turn **spare hardware into servers**, **saved media into searchable libraries**, and **AI models into tools you can use**.
+**I follow questions until they turn into working tools.** A repository becomes an app on a phone. A spoken request becomes a tool call and a streamed reply. A document becomes something I can rearrange and print.
 
-I care about **what happens after the demo**: a connection drops, models compete for GPU memory, a document reflows, or a desktop interface changes. That’s where a lot of my work happens.
+I learn through the details that force a better question: why a webpage reflows when its 3D device rotates, why voice models compete for GPU memory, or how a saved decision becomes useful in a later task.
+
+**Some work I’m proud of:**
+
+- **A usable browser inside a 3D device.** Fixed website layout, variable render density, and click boundaries that follow what is actually visible. [Studio engineering →](docs/ENGINEERING.md#studio-a-browser-inside-a-device-inside-an-interface)
+- **A voice loop built around a shared GPU.** Speech recognition, model/tool routing and sentence-by-sentence audio playback, with explicit model loading and unloading. [JARVIS →](docs/ENGINEERING.md#jarvis)
+- **A research thread turned into a searchable workbench.** A preserved 98-source subtitle archive, a Python merger, and Arabic search, map and connection views. [How it grew →](docs/STORY.md#andoriaefnetwork-from-a-question-to-a-workbench)
+
+<sub>Studio and JARVIS are development work. The archive count is a checked snapshot. Public downloads are linked below.</sub>
 
 <a id="selected-systems"></a>
 
@@ -43,14 +52,14 @@ I care about **what happens after the demo**: a connection drops, models compete
 
 <a href="https://github.com/JPEG111/anydeploy-releases">
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy-mobile.svg?v=3">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy.svg?v=3" width="100%" alt="anyDeploy: repository to build, process, proxy and public URL on your own hardware.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy-mobile.svg?v=5">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy.svg?v=5" width="100%" alt="anyDeploy: choose a repository or ZIP, select the target device, build, serve for the project type and choose local, temporary or domain routing.">
 </picture>
 </a>
 
 ### Deploy on hardware you own.
 
-From a repository to a running app on **Android / Termux, Raspberry Pi, Linux or Windows / WSL2**. Framework detection, builds, `nginx`, `PM2`, TLS and Cloudflare routing share one workflow.
+Choose **a GitHub repository or ZIP**, select an **Android / Termux, Raspberry Pi, Linux or Windows / WSL2** target, then build on that device. Static files are served by `nginx`; applications use a running process where needed. Reach the result through a **local address, temporary link or configured domain**.
 
 **When Wi-Fi drops, the deployment can reconnect and resume.** Services and routes stay inspectable after the first successful build.
 
@@ -98,8 +107,8 @@ Import posts and shared media, enrich them with **local AI tagging, OCR and embe
 Working local builds and experiments. Each explores a different constraint.
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis-mobile.svg?v=3">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis.svg?v=3" width="100%" alt="JARVIS: wake word, speech recognition, model and tool routing, streamed text-to-speech.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis-mobile.svg?v=5">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis.svg?v=5" width="100%" alt="JARVIS: an illustrative audio waveform changes between listening, transcription, request routing and spoken output.">
 </picture>
 
 ### JARVIS · Voice, vision and a shared GPU
@@ -146,6 +155,49 @@ Local build; clean-machine acceptance and public distribution remain separate wo
 [Architecture notes →](docs/ENGINEERING.md#omniagent)
 
 </details>
+
+<a id="behind-the-builds"></a>
+
+## The questions behind the builds
+
+My interests reach into **physics, space, history and how institutions work**. The pattern is the same: follow the explanation, look for the mechanism, then find a way to inspect it.
+
+<details>
+<summary><b>Cube → the system outside the room</b></summary>
+
+The *Cube* conversations started with who built the maze, who operated it, and who understood its purpose. I kept asking about the machinery outside the room. That is what the maze here represents: following a question, reaching a dead end and changing the route.
+
+</details>
+
+<details>
+<summary><b>Andoria / EFNETWORK → source material I could search and revisit</b></summary>
+
+I worked through subtitle collection, script errors, text cleanup and merging so I could inspect the source material across videos. The preserved archive contains **98 subtitle files**; the dashboard has **98 indexed transcripts**, with Arabic search, maps, a timeline and connections.
+
+It became a data pipeline and an interface for comparing source material. [The longer story →](docs/STORY.md#andoriaefnetwork-from-a-question-to-a-workbench)
+
+</details>
+
+<details>
+<summary><b>AI memory → the next question underneath the answer</b></summary>
+
+Where does an assistant keep a decision after the conversation moves on?
+
+<details>
+<summary>Saving it creates another question.</summary>
+
+What retrieves the right decision when a later task needs it? What keeps a workflow from skipping its prerequisites?
+
+<details>
+<summary>And when the memory keeps growing?</summary>
+
+Does it become useful context, or a larger pile to search through? How do stale decisions get corrected? Those tradeoffs are part of what interests me about agent memory and durable task state.
+
+</details>
+</details>
+</details>
+
+[How I learned through the work](docs/STORY.md) · [Build milestones](docs/ACHIEVEMENTS.md)
 
 <a id="tech-stack"></a>
 
