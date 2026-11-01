@@ -26,12 +26,12 @@ function intro(mobile){
 const projects={anydeploy:{n:'01',name:'anyDeploy',tag:'SPARE HARDWARE. ANOTHER LIFE.',sub:'Self-hosted deployment',nodes:['REPO','DEPLOY','HARDWARE']},orbs:{n:'02',name:'Orbs',tag:'MAKE THE WHOLE LIFECYCLE WORK.',sub:'Windows / Discord tooling',nodes:['OBSERVE','QUEUE','RECOVER']},lab:{n:'03',name:'The open questions',tag:'MEMORY / GEOMETRY / CONNECTED KNOWLEDGE',sub:'My ongoing experiments',nodes:['QUESTION','TEST','RECORD']}};
 function project(key,mobile){
  const p=projects[key],w=mobile?720:1280,h=mobile?370:258;
- let b=label(34,39,`${p.n} / ${p.tag}`,mobile?15:16,'accent')+text(34,106,p.name,mobile?53:57,'ink','font-weight="650" letter-spacing="-1.5"')+text(36,149,p.sub,24,'muted');
+ let b=label(34,39,mobile?`${p.n} / ${key==='lab'?'EXPERIMENTS IN PROGRESS':'A SYSTEM I BUILD'}`:`${p.n} / ${p.tag}`,mobile?23:16,'accent')+text(34,106,p.name,mobile?53:57,'ink','font-weight="650" letter-spacing="-1.5"')+text(36,149,p.sub,mobile?28:24,'muted');
  const y=mobile?235:128,x=mobile?104:793,gap=mobile?253:177;
  b+=path(`M${x} ${y} H${x+gap*2}`,'line')+path(`M${x} ${y} H${x+gap*2}`,'accent','class="signal"');
- p.nodes.forEach((s,i)=>{let cx=x+i*gap;b+=rect(cx-51,y-27,102,54)+label(cx,y+6,s,s==='HARDWARE'?13:14,i===2?'accent':'ink','text-anchor="middle"');});
+ p.nodes.forEach((s,i)=>{let cx=x+i*gap;b+=rect(cx-(mobile?68:51),y-27,mobile?136:102,54)+label(cx,y+7,s,mobile?21:(s==='HARDWARE'?13:14),i===2?'accent':'ink','text-anchor="middle"');});
  b+=path(`M${x+gap*2} ${y+39} V${y+61} H${x} V${y+39}`)+circle(x+gap,y+61,3,'blue','class="pulse"');
- b+=label(34,h-27,key==='lab'?'LOCAL ARTIFACTS + ARCHITECTURE EXPLORATION':'PUBLIC RELEASES / PRIVATE SOURCE',mobile?16:15)+label(w-34,h-27,key==='lab'?'FOLLOW THE THREAD ↓':'OPEN PROJECT ↗',mobile?16:15,'accent','text-anchor="end"');
+ b+=label(34,h-27,mobile?(key==='lab'?'LOCAL ARTIFACTS':'PUBLIC RELEASES'):(key==='lab'?'LOCAL ARTIFACTS + ARCHITECTURE EXPLORATION':'PUBLIC RELEASES / PRIVATE SOURCE'),mobile?23:15)+label(w-34,h-27,mobile?(key==='lab'?'OPEN NOTES ↓':'OPEN PROJECT ↗'):(key==='lab'?'FOLLOW THE THREAD ↓':'OPEN PROJECT ↗'),mobile?23:15,'accent','text-anchor="end"');
  return svg(w,h,`${p.name} — ${p.sub}`,b);
 }
 function atlas(){
