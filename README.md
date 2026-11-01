@@ -9,6 +9,7 @@
 
 <p align="center">
   <a href="#user-content-selected-systems"><kbd>Projects</kbd></a> &nbsp;
+  <a href="#user-content-tech-stack"><kbd>Languages & tools</kbd></a> &nbsp;
   <a href="#user-content-research-workbench"><kbd>Research</kbd></a> &nbsp;
   <a href="#user-content-follow-a-question"><kbd>How I think</kbd></a> &nbsp;
   <a href="#user-content-build-trail"><kbd>My story</kbd></a> &nbsp;
@@ -20,6 +21,14 @@
 I build tools for complicated workflows: deploying software on spare hardware, managing desktop automation, and organizing large collections of source material. My work spans self-hosting, desktop apps and AI-assisted development.
 
 A project usually takes me beyond the first feature. I want to understand its dependencies, the state it needs to remember, and what happens when something breaks. That curiosity has taken me from research archives and visual maps into deployment software and agent workflows.
+
+## A few things I've built
+
+| Milestone | What came out of it |
+| :--- | :--- |
+| **Two released desktop apps** | [anyDeploy](https://github.com/JPEG111/anydeploy-releases): deploy to your own hardware. [Orbs](https://github.com/JPEG111/orbs-release): a bilingual Windows workflow for supported Discord Quests. |
+| **98 sources, organized** | A Python transcript pipeline and investigation dashboard with search, timelines, maps and connections. |
+| **657 tests at one release checkpoint** | The Orbs 1.21.14 suite ran against both source and compiled builds, alongside recovery and installer checks. [Evidence and scope →](docs/ACHIEVEMENTS.md) |
 
 <a id="selected-systems"></a>
 
@@ -54,6 +63,26 @@ A project usually takes me beyond the first feature. I want to understand its de
 **Available:** Windows installer. Compatibility and usage details are in the project README.
 
 [Explore Orbs →](https://github.com/JPEG111/orbs-release) · [Download](https://github.com/JPEG111/orbs-release/releases/latest) · [Engineering checkpoints](docs/ACHIEVEMENTS.md#orbs--making-the-whole-lifecycle-work)
+
+<a id="tech-stack"></a>
+
+## Languages & tools
+
+The stack I work with across software, infrastructure and creative projects.
+
+**Languages**
+
+<img src="https://skillicons.dev/icons?i=ts,js,py,go,rust,html&perline=6" alt="TypeScript, JavaScript, Python, Go, Rust, HTML">
+
+**Frameworks, APIs & infrastructure**
+
+<img src="https://skillicons.dev/icons?i=react,nextjs,tailwind,graphql,nodejs,electron&perline=6" alt="React, Next.js, Tailwind CSS, GraphQL, Node.js, Electron">
+
+<img src="https://skillicons.dev/icons?i=aws,gcp,cloudflare,debian,linux,powershell&perline=6" alt="AWS, Google Cloud, Cloudflare, Debian, Linux, PowerShell">
+
+**Tools & creative**
+
+<img src="https://skillicons.dev/icons?i=vscode,visualstudio,blender,ae,ai&perline=6" alt="VS Code, Visual Studio, Blender, After Effects, Adobe Illustrator">
 
 <a id="research-workbench"></a>
 
@@ -143,8 +172,7 @@ This is an ongoing architectural investigation.
 
 [Roadmap and completion criteria →](docs/ROADMAP.md) · Updated **1 November 2026**
 
-<details>
-<summary><b>More from the workbench</b></summary>
+## More systems I’m building
 
 | Project | What I'm exploring | Stage |
 | :--- | :--- | :--- |
@@ -157,18 +185,27 @@ This is an ongoing architectural investigation.
 
 Most source repositories are private. The release links above are the public entry points.
 
-**Tools I use:** `TypeScript` `React` `Electron` `Python` `Node.js` `PowerShell` `Linux` `SSH` `Blender` `Markdown` `Obsidian`
+<a id="github-activity"></a>
 
-</details>
+## GitHub activity
 
-<details>
-<summary><b>After the work / the contribution arcade</b></summary>
+<div align="center">
+
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=JPEG111&theme=dracula" alt="Languages in my public GitHub repositories">
+<img src="https://streak-stats.demolab.com?user=JPEG111&theme=dracula&hide_border=true" alt="GitHub contribution streak">
+
+</div>
+
+<sub>These cards reflect public GitHub activity; much of my project source is private.</sub>
+
+### The contribution arcade
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph-dark.svg">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg" width="100%" alt="Pac-Man moving through my GitHub contributions.">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg" width="100%" alt="Pac-Man eating my GitHub contribution graph.">
 </picture>
 
-</details>
+<p align="center"><img src="https://komarev.com/ghpvc/?username=JPEG111&style=flat-square&color=6366f1&label=profile+views" alt="Profile view counter"></p>
 
 <p align="center"><sub>Still following the question.</sub><br><a href="#user-content-top">↑ Back to the beginning</a> · <a href="docs/DESIGN.md">About this README</a></p>

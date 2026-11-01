@@ -18,7 +18,10 @@ The reading order starts with what visitors can try, then explains how research 
 - Four nested disclosure sections follow one memory question into deeper design questions.
 - A short timeline connects research, visualization, shipping and memory work.
 - Roadmap rows define the next milestone for each focus.
-- The existing contribution animation and workflow are preserved in an optional disclosure.
+- Languages, frameworks, infrastructure and creative tools are shown as icon rows.
+- The contribution arcade is visible without expanding a section; the original stats and view counter return alongside it.
+- A compact milestone table puts released apps, the 98-source archive and a dated testing checkpoint near the introduction.
+- Third-party icon and statistics images depend on their providers; written labels and project links remain readable.
 
 The substantive text stays selectable. Artwork has alternative text and embedded descriptions. Custom SVG motion stops when the browser requests reduced motion; unsupported animation leaves a readable static image. The existing Pac-Man animation has its own behavior.
 
