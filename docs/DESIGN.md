@@ -1,19 +1,14 @@
 # README design
 
-The profile uses GitHub Markdown, original SVG artwork and native links.
+Original dark SVGs form a connected set of project panels: orbiting signals in the hero, animated deployment stages, voice waveforms, editable document layers and camera-angle controls. Each panel has a separate narrow-screen composition. Dark backgrounds remain dark in both GitHub themes.
 
-- Dark blue and lime artwork, with separate light and narrow-screen variants.
-- Animated signal paths illustrate deployment and desktop workflows.
-- Original SVG motion respects the browser's reduced-motion preference.
-- Languages and tools appear in labeled icon rows.
-- Contribution cards and Pac-Man remain visible.
-- Release links and project information stay selectable as ordinary text.
+The profile uses GitHub Markdown, picture sources, linked images and native disclosures. Project descriptions, release links and engineering notes remain selectable text. The diagrams illustrate workflows; they are not application screenshots or live telemetry.
 
-Third-party icon and statistics images depend on their providers. The cards describe public GitHub activity.
+Motion uses SVG-contained CSS and includes a reduced-motion preference. GitHub does not support arbitrary JavaScript or page CSS in a README. Icon and activity cards depend on third-party services. The existing Pac-Man workflow remains unchanged.
 
 ## Rebuild the artwork
 
-Node 22, without package dependencies:
+Node 22, no package dependencies:
 
 ~~~sh
 node tools/render-profile.mjs

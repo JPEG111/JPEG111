@@ -22,4 +22,14 @@ Those two runs use the same suite. The checkpoint is dated; it does not establis
 
 [Project overview](https://github.com/JPEG111/orbs-release) · [Release checkpoint](https://github.com/JPEG111/orbs-release/releases/tag/v1.21.14) · [Latest downloads](https://github.com/JPEG111/orbs-release/releases/latest)
 
+## InstaVault
+
+A released Windows app for a local, searchable media library.
+
+- Local AI enrichment, OCR, embeddings and graph exploration.
+- Optional transcription isolated in its own Python process.
+- Version **1.2.5** is a published installer checkpoint, including update-cache and import-wizard fixes.
+
+[Project overview](https://github.com/JPEG111/InstaVault-Releases) · [Release checkpoint](https://github.com/JPEG111/InstaVault-Releases/releases/tag/v1.2.5) · [Latest downloads](https://github.com/JPEG111/InstaVault-Releases/releases/latest)
+
 [Project roadmap](ROADMAP.md) · [Back to profile](../README.md)

@@ -1,15 +1,15 @@
 # Project overview
 
-## anyDeploy
+Three released apps cover deployment, stateful desktop automation and local media discovery. The lab extends into voice assistants, direct document editing, multi-angle image generation and local AI actions.
 
-Deploy projects to hardware you own: Android phones, Raspberry Pi, Linux and Windows targets. Public desktop releases are available for Windows and Linux.
+| Project | What to explore | Stage |
+| :--- | :--- | :--- |
+| [anyDeploy](https://github.com/JPEG111/anydeploy-releases) | Build, process and routing orchestration on your own hardware | Released; Studio work in development |
+| [Orbs](https://github.com/JPEG111/orbs-release) | Desktop state, bounded recovery and retained queues | Released |
+| [InstaVault](https://github.com/JPEG111/InstaVault-Releases) | Local enrichment, graph exploration and media search | Released |
+| JARVIS | Speech queues, tool routing and GPU residency | Local build |
+| Lumina | Typed document data, direct editing and print | Local build |
+| Luminal | Spatial camera controls and image-model pipelines | Experiment |
+| OmniAgent | Workspace boundaries, durable tasks and action receipts | Local build |
 
-[Explore anyDeploy](https://github.com/JPEG111/anydeploy-releases) · [Download](https://github.com/JPEG111/anydeploy-releases/releases/latest)
-
-## Orbs
-
-Windows tooling for supported Discord Quests, with queue management, an English / Egyptian Arabic interface and update support. See the project README for compatibility and usage details.
-
-[Explore Orbs](https://github.com/JPEG111/orbs-release) · [Download](https://github.com/JPEG111/orbs-release/releases/latest)
-
-[Release milestones](ACHIEVEMENTS.md) · [Roadmap](ROADMAP.md) · [Back to profile](../README.md)
+[Engineering notes](ENGINEERING.md) · [Release milestones](ACHIEVEMENTS.md) · [Roadmap](ROADMAP.md) · [Profile](../README.md)

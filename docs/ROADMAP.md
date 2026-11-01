@@ -1,14 +1,14 @@
-# Project roadmap
+# Project direction
 
-Development priorities for the public projects. Features and compatibility should be checked against each project's current release notes.
+The next work is about testing complete workflows and making the systems easier to inspect. These are directions, without fixed release dates.
 
-| Project | Direction | What success looks like |
-| :--- | :--- | :--- |
-| **anyDeploy** | Simplify setup and first deployment | A supported target can follow the documented steps from installation to a running deployment. |
-| **anyDeploy** | Improve deployment feedback | Progress, failures and the next action are clear in the interface. |
-| **Orbs** | Maintain supported client workflows | Supported navigation and queue behavior pass release checks. |
-| **Orbs** | Improve interruption recovery | Queues and preferences survive supported interruption and update paths. |
+| Area | Deliverable to work toward |
+| :--- | :--- |
+| anyDeploy | Broader real-hardware setup, interrupted-deployment recovery and upgrade coverage. Keep Studio development distinct from the public stable build. |
+| Orbs | More observed client-layout cases, bounded recovery and installer checks that retain user state. |
+| InstaVault | Clearer optional-component setup and predictable import, background-job and update behavior. |
+| JARVIS / OmniAgent | More inspectable model handoffs, tool actions, remembered decisions and recovery paths. |
+| Lumina | Document cases that exercise direct edits, wrapping, pagination and native print together. |
+| Luminal | Compare spatial controls and generation paths against consistent reference cases. |
 
-[anyDeploy releases](https://github.com/JPEG111/anydeploy-releases/releases) · [Orbs releases](https://github.com/JPEG111/orbs-release/releases)
-
-[Release milestones](ACHIEVEMENTS.md) · [Back to profile](../README.md)
+[Engineering notes](ENGINEERING.md) · [Profile](../README.md)
