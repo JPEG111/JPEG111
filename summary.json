@@ -9,5 +9,7 @@
       "color": "#f1e05a",
       "count": 1
     }
-  ]
+  ],
+  "totalPublicCommits": 101,
+  "commitQuery": "author:JPEG111 is:public"
 }
