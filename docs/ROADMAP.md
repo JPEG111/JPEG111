@@ -1,37 +1,14 @@
-# What I'm working toward
+# Project roadmap
 
-Reviewed 1 November 2026. Each direction has a result that can be checked; no delivery dates are promised here.
+Development priorities for the public projects. Features and compatibility should be checked against each project's current release notes.
 
-## Now / dependable product workflows
+| Project | Direction | What success looks like |
+| :--- | :--- | :--- |
+| **anyDeploy** | Simplify setup and first deployment | A supported target can follow the documented steps from installation to a running deployment. |
+| **anyDeploy** | Improve deployment feedback | Progress, failures and the next action are clear in the interface. |
+| **Orbs** | Maintain supported client workflows | Supported navigation and queue behavior pass release checks. |
+| **Orbs** | Improve interruption recovery | Queues and preferences survive supported interruption and update paths. |
 
-**anyDeploy and OmniAgent:** make the path from installing the tools to completing a first task understandable. The next milestone is a supported setup journey with a real account, a successful tool operation and a checked result.
+[anyDeploy releases](https://github.com/JPEG111/anydeploy-releases/releases) · [Orbs releases](https://github.com/JPEG111/orbs-release/releases)
 
-**Orbs:** turn observed client-navigation and interruption failures into reproducible cases. Check the exact packaged release, verify supported workflows and preserve saved data through upgrades.
-
-**Completion signal:** another supported run follows the documented steps and produces the expected result. Tests, simulations and real-client checks are recorded separately.
-
-## Next / persistent decisions
-
-Prototype one bounded task that connects:
-
-1. The question and its source material.
-2. A decision, including alternatives and rationale.
-3. The prerequisites for an action.
-4. A result that can actually be checked.
-5. A follow-up task that retrieves the relevant decision.
-
-**Completion signal:** the follow-up task retrieves the relevant decision and honors its prerequisites. Measure missed retrieval, stale facts, contradictory decisions and context growth. The cost of recording more is part of the experiment.
-
-## Explore / repeatable creative work
-
-For local image-to-3D, compare multiple candidates against the same references. Preserve raw and cleaned outputs, record why a candidate was selected, and keep editable scenes and reproducible rebuild steps.
-
-**Completion signal:** another run can reproduce the workflow, and the comparison explains the choice. Keep source material, candidate outputs and the reasoning behind the selection.
-
-## Longer term / Strategy OS
-
-Start with a small loop that carries a research question into an evidence-backed plan, a reviewed action and a measured result. Expand only when the loop works.
-
-Research interests include memory, workflow orchestration, research tools and creative systems. Concepts remain concepts until an implementation has evidence.
-
-[The project story](STORY.md) · [Achievement notes](ACHIEVEMENTS.md) · [Profile](../README.md)
+[Release milestones](ACHIEVEMENTS.md) · [Back to profile](../README.md)

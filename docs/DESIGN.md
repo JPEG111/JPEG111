@@ -1,40 +1,22 @@
-# Built for the README
+# README design
 
-This is the source for JPEG111's actual GitHub profile README. It uses GitHub-rendered Markdown and original SVG images stored in this repository.
+The profile uses GitHub Markdown, original SVG artwork and native links.
 
-## Visual language
+- Dark blue and lime artwork, with separate light and narrow-screen variants.
+- Animated signal paths illustrate deployment and desktop workflows.
+- Original SVG motion respects the browser's reduced-motion preference.
+- Languages and tools appear in labeled icon rows.
+- Contribution cards and Pac-Man remain visible.
+- Release links and project information stay selectable as ordinary text.
 
-A working notebook for connected systems: cropped corners, signal traces and project-specific flow diagrams. Deep blue and lime in dark mode; pale paper, ink and green in light mode.
-
-Each project image has its own diagram: repository to deployment to hardware; observation to queue to recovery; sources to archive to map. Signals move along those paths. They are decorative, not live telemetry.
-
-The reading order starts with what visitors can try, then explains how research became tooling, how I approach problems, how the work developed and what comes next. Private conversations inform the examples; raw transcripts and sensitive personal details stay private.
-
-## Native GitHub interactions
-
-- Linked project artwork opens the relevant release repository.
-- Picture sources select separate desktop/mobile compositions and light/dark palettes.
-- Section navigation uses native links and keyboard-style labels.
-- Four nested disclosure sections follow one memory question into deeper design questions.
-- A short timeline connects research, visualization, shipping and memory work.
-- Roadmap rows define the next milestone for each focus.
-- Languages, frameworks, infrastructure and creative tools are shown as icon rows.
-- The contribution arcade is visible without expanding a section; the original stats and view counter return alongside it.
-- A compact milestone table puts released apps, the 98-source archive and a dated testing checkpoint near the introduction.
-- Third-party icon and statistics images depend on their providers; written labels and project links remain readable.
-
-The substantive text stays selectable. Artwork has alternative text and embedded descriptions. Custom SVG motion stops when the browser requests reduced motion; unsupported animation leaves a readable static image. The existing Pac-Man animation has its own behavior.
+Third-party icon and statistics images depend on their providers. The cards describe public GitHub activity.
 
 ## Rebuild the artwork
 
-Node 22, no package dependencies:
+Node 22, without package dependencies:
 
-```sh
+~~~sh
 node tools/render-profile.mjs
-```
+~~~
 
-The README and supporting Markdown are maintained by hand. There is no additional website or hosted app involved.
-
-[GitHub profile README documentation](https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme) · [Collapsed sections](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections)
-
-[The project story](STORY.md) · [Back to the profile](../README.md)
+[Back to profile](../README.md)
