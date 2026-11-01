@@ -32,13 +32,13 @@ The desktop work includes a custom native interface, asynchronous artwork, Engli
 
 ## InstaVault
 
-**Released Windows app · [project and downloads](https://github.com/JPEG111/InstaVault-Releases)**
+**Local Windows build · Implementation case study**
 
 The pipeline turns imported media into local records that can be enriched with OCR, tagging and embeddings. React presents both a D3 force graph and Fuse-based search; a FastAPI backend handles the work, with Ollama as the default local AI runtime.
 
 The packaged Electron app loads its interface from the backend, keeping API requests on the same origin. The large transcription dependency stack is optional. It runs in a separate Python interpreter recorded at installation, avoiding a mix of the frozen backend's NumPy and the transcription pack's ML dependencies inside one process.
 
-The v1.2.5 release fixes two useful lifecycle cases: an update displaying cached old UI, and an import wizard discarding selections when a drag ended outside the panel. Slow actions also run away from the main event-loop path.
+The desktop work addresses two useful lifecycle cases: an update displaying cached old UI, and an import wizard discarding selections when a drag ended outside the panel. Slow actions also run away from the main event-loop path.
 
 ## JARVIS
 

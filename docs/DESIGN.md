@@ -1,37 +1,44 @@
 # README design
 
-Original dark SVGs form a connected set of project panels: orbiting signals in the hero, animated deployment stages, voice waveforms, editable document layers and camera-angle controls. Each panel has a separate narrow-screen composition. Dark backgrounds remain dark in both GitHub themes.
+The native GitHub README uses original dark SVG panels, selectable Markdown descriptions, release links and disclosures. It does not embed an executable app. Desktop and mobile have separate compositions.
 
-The profile uses GitHub Markdown, picture sources, linked images and native disclosures. Project descriptions, release links and engineering notes remain selectable text. The diagrams illustrate workflows; they are not application screenshots or live telemetry.
+## Data that changes
 
-Motion uses SVG-contained CSS and includes a reduced-motion preference. GitHub does not support arbitrary JavaScript or page CSS in a README. Icon and activity cards depend on third-party services. The existing Pac-Man workflow remains unchanged.
+The twelve-hour profile workflow publishes 26 SVGs and one summary to the profile-activity branch. GitHub contribution totals, current/best calendar streaks, 56 contribution-day bars, repository-language labels, public commit total and cumulative monthly commit history all come from actual API results. The smaller arcade header also reflects actual contribution days.
 
-## Rebuild the artwork
+The anyDeploy and Orbs cards show their latest public release tag, publication date and attached-file count. The hero's public-release count derives from those featured public release sources, not every release ever published. Repository visibility is checked before release data is used. InstaVault remains a local-build case study, with implementation notes rather than inaccessible download links.
 
-Node 22, no package dependencies:
+No metric increments just to animate. A value changes when the API snapshot changes. Query failures, incomplete search, mismatched commit-history totals and missing/non-public release sources preserve the previous successful remote publication. GitHub indexing and image caches can delay visible changes. A snapshot date appears on the relevant panels.
+
+## State-driven illustrations
+
+Each project has its own four-state example. All affected objects, text and selection markers change together:
+
+| Panel | Example state sequence | Visual model |
+| :--- | :--- | :--- |
+| Hero | Source → build → route → service | Exploded orthographic motherboard, memory, storage, I/O and cooling assembly; active component follows the stage |
+| anyDeploy | Source → device build → connection loss → recovered route | Shaded device topology, retained-process receipt and endpoint state |
+| Orbs | Queue discovered → client lost → uncertain action → confirmation | Client inspector, queue entries, retained deadline and verified advancement |
+| InstaVault | Import → enrichment → semantic links → search result | Media tiles become a connected local index and a matching result |
+| JARVIS | Audio chunks → transcript → selected tool → speech queue | Ordered input chunks, example utterance, tool route and output sentence |
+| Lumina | Document model → block movement → reflow → print | Layout override changes document geometry and creates a second page |
+| Luminal | Front → three-quarter → profile → composite | Actual projected subject geometry changes with the named camera angle; source preparation is reused |
+
+These are labelled examples of the documented architecture. They are not live readings from a running application, synthetic performance benchmarks or exact application screenshots. Each cycle lasts sixteen seconds. Reduced-motion mode shows the final state without animation. The old free-running orbits, arbitrary waveform, scan stripes, pulsing dots, moving chart highlight and mechanical digit effects are removed. Headings, tool icons and roadmap goals remain stable labels rather than fabricated progress.
+
+GitHub's Pac-Man remains a game generated from real contribution data. Its existing workflow and output branch are unchanged. The third-party view counter retains its existing service semantics; it is not a unique-person count.
+
+## Rebuild
+
+Node 22 and an authenticated GitHub CLI, without package dependencies:
 
 ~~~sh
+node tools/render-activity.mjs
 node tools/render-profile.mjs
 ~~~
 
+The first command fetches and validates a complete snapshot, generates all live artwork under .local/generated-activity/, and publishes only with --publish in the profile repository. The second regenerates the checked-in artwork from that validated snapshot. --input accepts an explicit snapshot; --out selects an output directory.
+
+The workflow uses the existing repository token and contents permission. Public commit history uses author:JPEG111 is:public, a before-window baseline and twelve non-overlapping author-date ranges. It covers indexed default-branch matches across all years, excluding private/local-only work. Calendar contributions remain a separate measure. [GitHub commit-search semantics](https://docs.github.com/en/search-github/searching-on-github/searching-commits), [public release API](https://docs.github.com/en/rest/releases/releases#get-the-latest-release).
+
 [Back to profile](../README.md)
-
-## Typography and activity strip
-
-Project purpose lines use native third-level headings; key constraints use selective bold, implementation names use inline code, and platform/status context uses smaller text. GitHub controls the body font. Artwork uses a consistent sans-serif headline and monospaced labels.
-
-A compact custom activity strip sits above the hero. The dark/lime/cyan SVG replaces the third-party donut and streak cards. Desktop and mobile have separate compositions, with a moving baseline and reduced-motion support.
-
-The activity workflow refreshes every twelve hours and publishes only to the profile-activity branch. The existing Pac-Man output branch and workflow stay separate. Data comes from GitHub GraphQL: the contribution calendar, current streak (allowing today to remain empty), best streak within the returned twelve-month period, and primary languages of original public repositories. Repository languages are explicitly distinguished from the full toolchain. The graph shows the latest 56 calendar days. A failed query leaves the previous successful image intact.
-
-Rebuild with Node 22 and an authenticated GitHub CLI: node tools/render-activity.mjs. Generated files stay under .local/generated-activity/. The workflow uses the existing repository token, without a personal secret.
-
-## Total commit counter
-
-The first panel uses one oversized typographic number with a white-to-lime gradient, open spacing and a subtle entrance. There are no digit boxes, mechanical seams or leading zeroes. Desktop and mobile compositions are generated by tools/render-commit-counter.mjs, with reduced-motion support.
-
-Its value is GitHub commit search's total_count for author:JPEG111 is:public across all years. It counts indexed public default-branch matches attributed to the account, separately from the twelve-month contribution calendar. The panel links to the same search. Private repositories and local-only commits are outside this scope. [GitHub search semantics](https://docs.github.com/en/search-github/searching-on-github/searching-commits).
-
-The line now represents actual cumulative public commit history at monthly points over the last twelve calendar months. It uses the same public author query, partitioned into non-overlapping author-date ranges plus a baseline before the first month. Its geometry changes with history, independently of digit position or typography. A cyan highlight travels over that real line; only the highlight is decorative. Its zero-based vertical scale avoids exaggerating small changes. An unchanged count can still yield a different curve as dates move or indexing changes.
-
-The existing twelve-hour activity job publishes both counter variants to profile-activity. An incomplete search or history/total mismatch fails before changing generated or published assets, retaining the previous successful counter. Search requests run sequentially. No additional token or permissions were introduced. The data is an indexed snapshot, not an instant live ticker.

@@ -24,12 +24,12 @@ Those two runs use the same suite. The checkpoint is dated; it does not establis
 
 ## InstaVault
 
-A released Windows app for a local, searchable media library.
+A local Windows build for a searchable media library.
 
 - Local AI enrichment, OCR, embeddings and graph exploration.
 - Optional transcription isolated in its own Python process.
-- Version **1.2.5** is a published installer checkpoint, including update-cache and import-wizard fixes.
+- Desktop packaging work includes update-cache and import-wizard fixes.
 
-[Project overview](https://github.com/JPEG111/InstaVault-Releases) · [Release checkpoint](https://github.com/JPEG111/InstaVault-Releases/releases/tag/v1.2.5) · [Latest downloads](https://github.com/JPEG111/InstaVault-Releases/releases/latest)
+[Pipeline and packaging](ENGINEERING.md#instavault)
 
 [Project roadmap](ROADMAP.md) · [Back to profile](../README.md)

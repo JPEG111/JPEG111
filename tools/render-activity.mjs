@@ -1,7 +1,9 @@
 import {execFileSync} from 'node:child_process';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+import {setTimeout as backoff} from 'node:timers/promises';
 import {renderCommitCounter,historyBuckets,buildCommitHistory} from './render-commit-counter.mjs';
+import {renderProfile} from './render-profile.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -48,22 +50,34 @@ if(commitSearch?.incomplete_results!==false || !Number.isSafeInteger(commitSearc
 const totalPublicCommits=commitSearch.total_count;
 const date=days.at(-1).date;
 const buckets=historyBuckets(date);
-const searchCount=query=>{
-  const result=api('GET',`search/commits?q=${encodeURIComponent(query)}&per_page=1`);
-  if(result.incomplete_results!==false||!Number.isSafeInteger(result.total_count)||result.total_count<0)throw new Error('Public history search incomplete; keeping previous images');
-  return result.total_count;
+const searchCount=async query=>{
+  for(let attempt=0;attempt<2;attempt++){
+    const result=api('GET',`search/commits?q=${encodeURIComponent(query)}&per_page=1`);
+    if(result.incomplete_results===false&&Number.isSafeInteger(result.total_count)&&result.total_count>=0)return result.total_count;
+    if(attempt===0)await backoff(2000);
+  }
+  throw new Error('Public history search incomplete; keeping previous images');
 };
 let historyInput=response.commitHistory;
 if(fixture===-1){
-  const before=searchCount(`${commitQuery} author-date:<${buckets[0].start}`);
+  const before=await searchCount(`${commitQuery} author-date:<${buckets[0].start}`);
   const counts=[];
   // Sequential requests stay within the authenticated search quota.
-  for(const b of buckets)counts.push(searchCount(`${commitQuery} author-date:${b.start}..${b.end}`));
+  for(const b of buckets)counts.push(await searchCount(`${commitQuery} author-date:${b.start}..${b.end}`));
   historyInput={before,counts};
 }
 if(!historyInput)throw new Error('Missing commit history');
 const commitHistory=buildCommitHistory(totalPublicCommits,date,historyInput.before,historyInput.counts);
-const summary={date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery,commitHistory};
+const featured=[['anydeploy','anydeploy-releases'],['orbs','orbs-release']];
+const releases=[];
+for(const [key,repo] of featured){
+  const metadata=fixture!==-1?response.publicRepositories?.[key]:api('GET',`repos/${login}/${repo}`);
+  if(metadata?.private!==false)throw new Error('Release source must be public; keeping previous images');
+  const release=fixture!==-1?response.releases?.[key]:api('GET',`repos/${login}/${repo}/releases/latest`);
+  if(!release||release.draft||release.prerelease||typeof release.tag_name!=='string'||release.tag_name.length>30||!/^\d{4}-\d{2}-\d{2}T/.test(release.published_at)||!Array.isArray(release.assets)||!release.assets.length)throw new Error('Incomplete public release snapshot; keeping previous images');
+  releases.push({key,repo,tag:release.tag_name,published:release.published_at.slice(0,10),files:release.assets.length});
+}
+const summary={date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery,commitHistory,releases,recentDays:days.slice(-56)};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const C={bg:'#05070d',line:'#243143',muted:'#94a6bd',white:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff'};
 const text=(x,y,s,size=20,color=C.white,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;
@@ -85,19 +99,21 @@ function render(mobile) {
     const bw=gw/56-3,bh=d.contributionCount?Math.max(5,d.contributionCount/max*gh):3;
     b+=`<rect x="${x+i*gw/56}" y="${y+gh-bh}" width="${bw}" height="${bh}" rx="2" fill="${d.contributionCount?C.lime:C.line}"><title>${d.date}: ${d.contributionCount} contributions</title></rect>`;
   });
-  b+=`<path class="signal" d="M${x} ${y+gh+7}h${gw}" stroke="${C.cyan}" stroke-dasharray="5 18"/>`;
+  b+=`<path d="M${x} ${y+gh+7}h${gw}" stroke="${C.line}"/>`;
   const fy=mobile?368:278;
   b+=`<path d="M32 ${fy-27}H${w-32}" stroke="${C.line}"/>`;
   const names=ranked.slice(0,3).map(l=>l.name).join(' / ') || 'NO CLASSIFIED CODE YET';
   b+=mono(32,fy,'PUBLIC CODE',mobile?16:17,C.cyan)+text(mobile?188:207,fy,names,mobile?22:24,C.white,'font-weight="650"');
   if(!mobile)b+=mono(w-32,fy,'PRIMARY LANGUAGES / OWN REPOS',15,C.muted,'text-anchor="end"');
   b+=mono(32,h-13,mobile?'REPOSITORY LANGUAGES ≠ FULL TOOLCHAIN':'REPOSITORY LANGUAGES ≠ FULL TOOLCHAIN · CALENDAR SNAPSHOT · UTC',mobile?12:13);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">${login} / GitHub activity</title><desc id="desc">${summary.total} contributions in the calendar period. Current streak ${current} days. Best streak in that period ${best} days. Public original repository languages: ${esc(names)}. Updated ${summary.date} UTC. Language labels describe repositories, not the full toolchain.</desc><defs><linearGradient id="edge"><stop stop-color="#315660"/><stop offset=".5" stop-color="#243143"/><stop offset="1" stop-color="#c5ff5c" stop-opacity=".5"/></linearGradient></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}.signal{animation:travel 8s linear infinite}@keyframes travel{to{stroke-dashoffset:-184}}@media(prefers-reduced-motion:reduce){.signal{animation:none}}</style><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="18" fill="${C.bg}" stroke="url(#edge)"/>${b}</svg>\n`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">${login} / GitHub activity</title><desc id="desc">${summary.total} contributions in the calendar period. Current streak ${current} days. Best streak in that period ${best} days. Public original repository languages: ${esc(names)}. Updated ${summary.date} UTC. Language labels describe repositories, not the full toolchain. Bars and metrics refresh from actual GitHub data every twelve hours.</desc><defs><linearGradient id="edge"><stop stop-color="#315660"/><stop offset=".5" stop-color="#243143"/><stop offset="1" stop-color="#c5ff5c" stop-opacity=".5"/></linearGradient></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}</style><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="18" fill="${C.bg}" stroke="url(#edge)"/>${b}</svg>\n`;
 }
 const out=root+'.local/generated-activity/';
+const profileFiles=renderProfile(summary); // Validate every scene before overwriting any file.
 await mkdir(out,{recursive:true});
 for (const m of [false,true]) await writeFile(out+`activity${m?'-mobile':''}.svg`,render(m));
 for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m,commitHistory));
+for(const [name,content] of Object.entries(profileFiles))await writeFile(out+name,content);
 await writeFile(out+'summary.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify(summary));
 
@@ -109,7 +125,7 @@ if (args.includes('--publish')) {
   try { parent=api('GET',`repos/${repo}/git/ref/heads/${branch}`).object.sha; }
   catch { throw new Error('Activity branch missing; initialize it before running the publisher'); }
   const old=api('GET',`repos/${repo}/git/commits/${parent}`);
-  const entries=await Promise.all(['activity.svg','activity-mobile.svg','commit-counter.svg','commit-counter-mobile.svg','summary.json'].map(async path=>({path,mode:'100644',type:'blob',content:await readFile(out+path,'utf8')})));
+  const entries=await Promise.all(['activity.svg','activity-mobile.svg','commit-counter.svg','commit-counter-mobile.svg','summary.json',...Object.keys(profileFiles)].map(async path=>({path,mode:'100644',type:'blob',content:await readFile(out+path,'utf8')})));
   const tree=api('POST',`repos/${repo}/git/trees`,{base_tree:old.tree.sha,tree:entries});
   if(tree.sha!==old.tree.sha){
     const commit=api('POST',`repos/${repo}/git/commits`,{message:'Refresh profile activity',tree:tree.sha,parents:[parent]});

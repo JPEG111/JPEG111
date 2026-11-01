@@ -9,6 +9,8 @@ on:
     paths:
       - tools/render-activity.mjs
       - tools/render-commit-counter.mjs
+      - tools/render-profile.mjs
+      - tools/profile-scenes.mjs
       - .github/workflows/profile-activity.yml
 
 concurrency:
@@ -27,7 +29,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Build and publish the activity strip
+      - name: Refresh metrics, releases and state diagrams
         run: node tools/render-activity.mjs --publish
         env:
           GH_TOKEN: ${{ github.token }}

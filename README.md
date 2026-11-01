@@ -2,30 +2,32 @@
 
 <a href="https://github.com/search?q=author%3AJPEG111+is%3Apublic&amp;type=commits">
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter-mobile.svg?v=2">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter.svg?v=2" width="100%" alt="Total public commits authored by JPEG111 across all years, as indexed by GitHub on repository default branches. Cumulative monthly public commit history. Open the matching commit search.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter.svg?v=3" width="100%" alt="Total public commits authored by JPEG111 across all years, as indexed by GitHub on repository default branches. Cumulative monthly public commit history. Open the matching commit search.">
 </picture>
 </a>
 
 <a href="https://github.com/JPEG111?tab=overview">
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity-mobile.svg">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity.svg" width="100%" alt="GitHub activity: contributions over the last twelve months, current streak, best streak within that period, recent contribution days and public repository languages.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity.svg?v=3" width="100%" alt="GitHub activity: contributions over the last twelve months, current streak, best streak within that period, recent contribution days and public repository languages.">
 </picture>
 </a>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-hero-mobile.svg">
-  <img src="assets/profile/system-hero.svg" width="100%" alt="Skandar / JPEG111. Infrastructure, local AI and visual software.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-hero.svg?v=3" width="100%" alt="Skandar / JPEG111. Infrastructure, local AI and visual software.">
 </picture>
 
 <p align="center">
-  <a href="#user-content-selected-systems"><kbd>Released software</kbd></a> &nbsp;
+  <a href="#user-content-selected-systems"><kbd>Selected software</kbd></a> &nbsp;
   <a href="#user-content-the-lab"><kbd>Inside the lab</kbd></a> &nbsp;
   <a href="#user-content-tech-stack"><kbd>Languages & tools</kbd></a> &nbsp;
   <a href="#user-content-next-coordinates"><kbd>Roadmap</kbd></a> &nbsp;
   <a href="#user-content-github-activity"><kbd>Arcade</kbd></a>
 </p>
+
+<sub>GitHub metrics and public releases refresh every 12 hours. Project animations demonstrate example state changes.</sub>
 
 ### Skandar · Software developer
 
@@ -37,12 +39,12 @@ I care about **what happens after the demo**: a connection drops, models compete
 
 <a id="selected-systems"></a>
 
-## Released software
+## Selected software
 
 <a href="https://github.com/JPEG111/anydeploy-releases">
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-anydeploy-mobile.svg">
-  <img src="assets/profile/system-anydeploy.svg" width="100%" alt="anyDeploy: repository to build, process, proxy and public URL on your own hardware.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-anydeploy.svg?v=3" width="100%" alt="anyDeploy: repository to build, process, proxy and public URL on your own hardware.">
 </picture>
 </a>
 
@@ -59,8 +61,8 @@ From a repository to a running app on **Android / Termux, Raspberry Pi, Linux or
 
 <a href="https://github.com/JPEG111/orbs-release">
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-orbs-mobile.svg">
-  <img src="assets/profile/system-orbs.svg" width="100%" alt="Orbs: observe client state, recover within bounded deadlines, verify actions and manage the queue.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-orbs-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-orbs.svg?v=3" width="100%" alt="Orbs: observe client state, recover within bounded deadlines, verify actions and manage the queue.">
 </picture>
 </a>
 
@@ -72,10 +74,10 @@ A Windows app for supported Discord Quests, with **discovery, queues, tray contr
 
 [Project →](https://github.com/JPEG111/orbs-release) · [Windows download](https://github.com/JPEG111/orbs-release/releases/latest) · [State and recovery](docs/ENGINEERING.md#orbs)
 
-<a href="https://github.com/JPEG111/InstaVault-Releases">
+<a href="https://github.com/JPEG111/JPEG111/blob/main/docs/ENGINEERING.md#instavault">
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-instavault-mobile.svg">
-  <img src="assets/profile/system-instavault.svg" width="100%" alt="InstaVault: import media, enrich locally, connect it in a graph and search the archive.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-instavault-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-instavault.svg?v=3" width="100%" alt="InstaVault: import media, enrich locally, connect it in a graph and search the archive.">
 </picture>
 </a>
 
@@ -85,7 +87,9 @@ Import posts and shared media, enrich them with **local AI tagging, OCR and embe
 
 `Electron` + `React` + `FastAPI`. Optional transcription uses **its own Python process**, keeping its ML dependencies separate from the frozen backend.
 
-[Project →](https://github.com/JPEG111/InstaVault-Releases) · [Windows download](https://github.com/JPEG111/InstaVault-Releases/releases/latest) · [Pipeline and packaging](docs/ENGINEERING.md#instavault)
+<sub>Local build · Implementation case study</sub>
+
+[Pipeline and packaging →](docs/ENGINEERING.md#instavault)
 
 <a id="the-lab"></a>
 
@@ -94,8 +98,8 @@ Import posts and shared media, enrich them with **local AI tagging, OCR and embe
 Working local builds and experiments. Each explores a different constraint.
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-jarvis-mobile.svg">
-  <img src="assets/profile/system-jarvis.svg" width="100%" alt="JARVIS: wake word, speech recognition, model and tool routing, streamed text-to-speech.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-jarvis.svg?v=3" width="100%" alt="JARVIS: wake word, speech recognition, model and tool routing, streamed text-to-speech.">
 </picture>
 
 ### JARVIS · Voice, vision and a shared GPU
@@ -107,8 +111,8 @@ Wake word → VAD → `Whisper` → `LangGraph` → streamed `Chatterbox` speech
 [Voice pipeline and memory tradeoffs →](docs/ENGINEERING.md#jarvis)
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-lumina-mobile.svg">
-  <img src="assets/profile/system-lumina.svg" width="100%" alt="Lumina: one typed document model connects AI edits, pointer layout controls, pagination and print.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-lumina-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-lumina.svg?v=3" width="100%" alt="Lumina: one typed document model connects AI edits, pointer layout controls, pagination and print.">
 </picture>
 
 ### Lumina · Edit the document directly
@@ -120,8 +124,8 @@ Unstructured text becomes **one typed document shared across twelve templates**.
 [Layout, reflow and print →](docs/ENGINEERING.md#lumina)
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-luminal-mobile.svg">
-  <img src="assets/profile/system-luminal.svg" width="100%" alt="Luminal: camera-angle controls route images through single-shot or multi-stage generation.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-luminal-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-luminal.svg?v=3" width="100%" alt="Luminal: camera-angle controls route images through single-shot or multi-stage generation.">
 </picture>
 
 ### Luminal · Give the camera a direction
@@ -146,8 +150,8 @@ Local build; clean-machine acceptance and public distribution remain separate wo
 <a id="tech-stack"></a>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-stack-mobile.svg">
-  <img src="assets/profile/system-stack.svg" width="100%" alt="The toolchain: languages, frameworks, infrastructure and creative tools.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-stack-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-stack.svg?v=3" width="100%" alt="The toolchain: languages, frameworks, infrastructure and creative tools.">
 </picture>
 
 ## Languages & tools
@@ -171,8 +175,8 @@ Across the desktop apps, services and creative tools.
 <a id="next-coordinates"></a>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-roadmap-mobile.svg">
-  <img src="assets/profile/system-roadmap.svg" width="100%" alt="Next: deployment recovery, inspectable AI workflows, visual editing and local archives.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-roadmap-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-roadmap.svg?v=3" width="100%" alt="Next: deployment recovery, inspectable AI workflows, visual editing and local archives.">
 </picture>
 
 ## Where the work is heading
@@ -189,8 +193,8 @@ Across the desktop apps, services and creative tools.
 <a id="github-activity"></a>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/profile/system-arcade-mobile.svg">
-  <img src="assets/profile/system-arcade.svg" width="100%" alt="After the build: GitHub activity and the Pac-Man contribution arcade.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-arcade-mobile.svg?v=3">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/system-arcade.svg?v=3" width="100%" alt="After the build: GitHub activity and the Pac-Man contribution arcade.">
 </picture>
 
 ## The contribution arcade
