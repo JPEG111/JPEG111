@@ -1,7 +1,7 @@
 import {execFileSync} from 'node:child_process';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
-import {renderCommitCounter} from './render-commit-counter.mjs';
+import {renderCommitCounter,historyBuckets,buildCommitHistory} from './render-commit-counter.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -46,7 +46,24 @@ const commitQuery=`author:${login} is:public`;
 const commitSearch=fixture!==-1 ? response.commitSearch : api('GET',`search/commits?q=${encodeURIComponent(commitQuery)}&per_page=1`);
 if(commitSearch?.incomplete_results!==false || !Number.isSafeInteger(commitSearch.total_count) || commitSearch.total_count<0)throw new Error('Public commit search incomplete; keeping the previous counter');
 const totalPublicCommits=commitSearch.total_count;
-const summary={date:days.at(-1).date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery};
+const date=days.at(-1).date;
+const buckets=historyBuckets(date);
+const searchCount=query=>{
+  const result=api('GET',`search/commits?q=${encodeURIComponent(query)}&per_page=1`);
+  if(result.incomplete_results!==false||!Number.isSafeInteger(result.total_count)||result.total_count<0)throw new Error('Public history search incomplete; keeping previous images');
+  return result.total_count;
+};
+let historyInput=response.commitHistory;
+if(fixture===-1){
+  const before=searchCount(`${commitQuery} author-date:<${buckets[0].start}`);
+  const counts=[];
+  // Sequential requests stay within the authenticated search quota.
+  for(const b of buckets)counts.push(searchCount(`${commitQuery} author-date:${b.start}..${b.end}`));
+  historyInput={before,counts};
+}
+if(!historyInput)throw new Error('Missing commit history');
+const commitHistory=buildCommitHistory(totalPublicCommits,date,historyInput.before,historyInput.counts);
+const summary={date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery,commitHistory};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const C={bg:'#05070d',line:'#243143',muted:'#94a6bd',white:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff'};
 const text=(x,y,s,size=20,color=C.white,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;
@@ -80,7 +97,7 @@ function render(mobile) {
 const out=root+'.local/generated-activity/';
 await mkdir(out,{recursive:true});
 for (const m of [false,true]) await writeFile(out+`activity${m?'-mobile':''}.svg`,render(m));
-for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m));
+for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m,commitHistory));
 await writeFile(out+'summary.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify(summary));
 

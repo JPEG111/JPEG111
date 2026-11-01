@@ -1,38 +1,67 @@
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const C={bg:'#05070d',ink:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff',line:'#233448',muted:'#96a8be'};
 const tx=(x,y,s,n=22,fill=C.ink,extra='')=>`<text x="${x}" y="${y}" font-size="${n}" fill="${fill}" ${extra}>${esc(s)}</text>`;
-const mono=(x,y,s,n=20,fill=C.muted,extra='')=>tx(x,y,s,n,fill,`class="mono" letter-spacing="1.5" ${extra}`);
+const mono=(x,y,s,n=20,fill=C.muted,extra='')=>tx(x,y,s,n,fill,`class="mono" letter-spacing="1.2" ${extra}`);
+const iso=d=>d.toISOString().slice(0,10);
 
-export function renderCommitCounter(count,date,mobile=false) {
+export function historyBuckets(date) {
+  const now=new Date(date+'T00:00:00Z');
+  if(!Number.isFinite(+now)||iso(now)!==date)throw new Error('Invalid history date');
+  return Array.from({length:12},(_,i)=>{
+    const start=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()-11+i,1));
+    const end=i===11?now:new Date(Date.UTC(start.getUTCFullYear(),start.getUTCMonth()+1,0));
+    return {start:iso(start),end:iso(end)};
+  });
+}
+
+export function buildCommitHistory(total,date,before,counts) {
+  const buckets=historyBuckets(date);
+  if(!Array.isArray(counts)||counts.length!==12||![total,before,...counts].every(n=>Number.isSafeInteger(n)&&n>=0))throw new Error('Invalid commit history');
+  let value=before;
+  const baselineDate=new Date(buckets[0].start+'T00:00:00Z');
+  baselineDate.setUTCDate(baselineDate.getUTCDate()-1);
+  const points=[{date:iso(baselineDate),value}];
+  buckets.forEach((bucket,i)=>points.push({date:bucket.end,value:value+=counts[i]}));
+  if(value!==total)throw new Error('Commit history and total disagree; keeping previous images');
+  return {buckets:buckets.map((b,i)=>({...b,count:counts[i]})),points};
+}
+
+export function renderCommitCounter(count,date,mobile=false,history) {
   if(!Number.isSafeInteger(count)||count<0)throw new Error('Invalid commit count');
-  const raw=String(count),digits=raw.padStart(6,'0'),len=digits.length;
-  const w=mobile?720:1440,h=mobile?650:690,pad=mobile?32:48;
-  const gap=mobile?12:14,tw=(w-pad*2-gap*(len-1))/len;
-  const y=mobile?180:210,th=mobile?190:280;
-  const numberSize=Math.min(mobile?132:200,tw*1.08);
-  let b=mono(pad,43,'JPEG111 / COMMIT ARCHIVE',mobile?17:22,C.cyan);
-  if(!mobile)b+=mono(w-pad,43,date+' / UTC',19,C.muted,'text-anchor="end"');
-  b+=tx(pad,mobile?133:151,'TOTAL COMMITS',mobile?63:92,C.ink,'font-weight="850" letter-spacing="-2.8"');
-  if(!mobile)b+=mono(w-pad,145,'PUBLIC / ALL YEARS',23,C.lime,'text-anchor="end"');
-  for(let i=0;i<len;i++){
-    const x=pad+i*(tw+gap),leading=i<len-raw.length;
-    b+=`<rect x="${x}" y="${y+7}" width="${tw}" height="${th}" rx="12" fill="#02040a"/>`;
-    b+=`<rect x="${x}" y="${y}" width="${tw}" height="${th}" rx="12" fill="url(#tile)" stroke="${leading?'#1b293a':'#3b553a'}"/>`;
-    b+=`<path d="M${x+13} ${y+1}h${tw-26}" stroke="${leading?'#3b4b60':C.lime}" stroke-opacity=".7"/>`;
-    b+=`<g class="digit" style="animation-delay:${i*.11}s;transform-origin:${x+tw/2}px ${y+th/2}px">`;
-    b+=tx(x+tw/2,y+th*.79,digits[i],numberSize,leading?'#405368':C.lime,'class="mono" text-anchor="middle" font-weight="800" letter-spacing="-7"');
-    b+='</g>';
-    b+=`<path d="M${x+1} ${y+th*.52}h${tw-2}" stroke="#05070d" stroke-width="3"/><path d="M${x+1} ${y+th*.52+3}h${tw-2}" stroke="#6c8b72" stroke-opacity=".11"/>`;
-    b+=`<rect x="${x-2}" y="${y+th*.52-8}" width="5" height="17" rx="2" fill="#3e5164"/><rect x="${x+tw-3}" y="${y+th*.52-8}" width="5" height="17" rx="2" fill="#3e5164"/>`;
+  if(!history?.points?.length||history.points.at(-1).value!==count)throw new Error('Missing matching commit history');
+  const w=mobile?720:1440,h=mobile?790:730,pad=mobile?36:52;
+  const value=count.toLocaleString('en-US');
+  const numberSize=Math.min(mobile?286:360,(mobile?w-pad*2:840)/(value.length*.67));
+  const numberY=mobile?378:405;
+  let b=mono(pad,46,'JPEG111 / COMMIT ARCHIVE',mobile?17:20,C.cyan);
+  if(!mobile)b+=mono(w-pad,46,date+' / UTC',18,C.muted,'text-anchor="end"');
+  b+=tx(pad,mobile?111:125,'TOTAL COMMITS',mobile?51:76,C.ink,'font-weight="850" letter-spacing="-2"');
+  b+=`<g class="number">${tx(pad-6,numberY,value,numberSize,'url(#number)','font-weight="900" letter-spacing="-14"')}</g>`;
+  if(mobile)b+=mono(pad,435,'PUBLIC / ALL YEARS',22,C.lime);
+  else {
+    b+=`<path d="M1000 215v180" stroke="${C.line}"/>`;
+    b+=mono(1042,250,'PUBLIC COMMITS',23,C.lime)+mono(1042,289,'ACROSS ALL YEARS',19);
+    b+=tx(1042,359,'+'+(count-history.points[0].value).toLocaleString('en-US'),60,C.ink,'font-weight="750"');
+    b+=mono(1042,394,'IN THIS WINDOW',18);
   }
-  if(mobile){b+=mono(pad,419,'PUBLIC / ALL YEARS',25,C.lime)+mono(pad,457,'DEFAULT BRANCHES',21,C.muted);}
-  const rail=mobile?524:553;
-  const path=`M${pad} ${rail}H${w*.38}Q${w*.42} ${rail} ${w*.44} ${rail-25}T${w*.51} ${rail-25}H${w*.67}Q${w*.7} ${rail-25} ${w*.73} ${rail}H${w-pad}`;
-  b+=`<path d="${path}" fill="none" stroke="#203549" stroke-width="3"/><path d="${path}" class="branch" fill="none" stroke="${C.cyan}" stroke-width="2" stroke-dasharray="3 29"/>`;
-  for(const [x,yy] of [[pad,rail],[w*.28,rail],[w*.55,rail-25],[w*.81,rail],[w-pad,rail]])b+=`<circle cx="${x}" cy="${yy}" r="7" fill="#05070d" stroke="${C.lime}" stroke-width="2"/>`;
-  b+=`<circle cx="${w-pad}" cy="${rail}" r="15" fill="none" stroke="${C.lime}" class="pulse"/>`;
-  b+=`<path d="M${pad} ${h-91}H${w-pad}" stroke="${C.line}"/>`;
-  if(mobile){b+=mono(pad,h-55,date+' / UTC',18)+mono(w-pad,h-55,'VIEW COMMITS ↗',18,C.lime,'text-anchor="end"')+mono(pad,h-22,'GITHUB SEARCH / AUTHOR: JPEG111',16);}
-  else {b+=mono(pad,h-48,'PUBLIC DEFAULT BRANCHES',23,C.cyan)+mono(w-pad,h-48,'OPEN THE COMMIT ARCHIVE ↗',23,C.lime,'text-anchor="end"')+mono(pad,h-17,'GITHUB SEARCH / AUTHOR: JPEG111 / UPDATED EVERY 12 HOURS',16);}
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">JPEG111 / ${count.toLocaleString('en-US')} total public commits</title><desc id="desc">${count} public commits attributed to JPEG111 across all years, as indexed by GitHub commit search on repository default branches. Updated ${esc(date)} UTC. Private and local-only work is outside this count. Leading zeroes are display padding. The branch line is decorative; the number is a snapshot, not an artificial live increment.</desc><defs><linearGradient id="tile" x2="0" y2="1"><stop stop-color="#102033"/><stop offset=".51" stop-color="#09111c"/><stop offset=".52" stop-color="#070d16"/><stop offset="1" stop-color="#0e1a28"/></linearGradient><linearGradient id="edge"><stop stop-color="#324c65"/><stop offset=".65" stop-color="#192b3d"/><stop offset="1" stop-color="#c5ff5c" stop-opacity=".6"/></linearGradient><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#21334b" stroke-opacity=".25"/></pattern></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}.digit{animation:reveal .8s both cubic-bezier(.2,.7,.2,1)}.branch{animation:travel 11s linear infinite}.pulse{animation:pulse 3s ease-in-out infinite}@keyframes reveal{from{opacity:0;transform:translateY(-18px) scaleY(.65)}to{opacity:1;transform:translateY(0) scaleY(1)}}@keyframes travel{to{stroke-dashoffset:-384}}@keyframes pulse{50%{opacity:.15;r:23px}}@media(prefers-reduced-motion:reduce){.digit,.branch,.pulse{animation:none!important}}</style><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="22" fill="${C.bg}" stroke="url(#edge)"/><rect x="2" y="2" width="${w-4}" height="${h-4}" rx="22" fill="url(#grid)"/>${b}</svg>\n`;
+  const gx=pad,gy=mobile?520:500,gw=w-pad*2,gh=mobile?113:112;
+  const max=Math.max(1,count);
+  const firstDate=Date.parse(history.points[0].date),span=Math.max(1,Date.parse(date)-firstDate);
+  const coords=history.points.map(p=>[gx+(Date.parse(p.date)-firstDate)/span*gw,gy+gh-p.value/max*gh]);
+  const path=coords.map(([x,y],i)=>`${i?'L':'M'}${x.toFixed(2)} ${y.toFixed(2)}`).join(' ');
+  b+=mono(pad,gy-25,'CUMULATIVE PUBLIC COMMITS',mobile?18:20,C.cyan);
+  if(!mobile)b+=mono(w-pad,gy-25,'12 MONTHS / MONTHLY POINTS',17,C.muted,'text-anchor="end"');
+  for(let i=0;i<3;i++)b+=`<path d="M${gx} ${gy+i*gh/2}h${gw}" stroke="${C.line}" stroke-dasharray="3 10" opacity=".65"/>`;
+  b+=`<path d="${path}L${gx+gw} ${gy+gh}H${gx}Z" fill="url(#area)"/>`;
+  b+=`<path id="history-line" d="${path}" fill="none" stroke="${C.lime}" stroke-width="4" stroke-linejoin="round"/>`;
+  b+=`<path class="signal" d="${path}" pathLength="100" fill="none" stroke="${C.cyan}" stroke-width="5" stroke-dasharray="3 97" stroke-linecap="round"/>`;
+  coords.forEach(([x,y],i)=>{b+=`<circle cx="${x}" cy="${y}" r="${i===coords.length-1?6:3}" fill="${i===coords.length-1?C.lime:C.bg}" stroke="${C.lime}" stroke-width="2"><title>${history.points[i].date}: ${history.points[i].value} cumulative commits</title></circle>`;});
+  const [ex,ey]=coords.at(-1);
+  b+=`<circle class="pulse" cx="${ex}" cy="${ey}" r="13" fill="none" stroke="${C.lime}"/>`;
+  b+=mono(pad,gy+gh+30,history.points[0].date.slice(0,7),16)+mono(w-pad,gy+gh+30,date.slice(0,7),16,C.muted,'text-anchor="end"');
+  b+=`<path d="M${pad} ${h-67}H${w-pad}" stroke="${C.line}"/>`;
+  b+=mono(pad,h-35,mobile?'DEFAULT BRANCHES':'PUBLIC DEFAULT BRANCHES',mobile?16:19,C.muted);
+  b+=mono(w-pad,h-35,'VIEW COMMITS ↗',mobile?17:20,C.lime,'text-anchor="end"');
+  const desc=`${count} public commits attributed to JPEG111 across all years on indexed repository default branches. Updated ${date} UTC. The line shows cumulative public commits at monthly intervals over the last twelve calendar months, using commit author dates. Its shape is generated from actual counts and changes when those counts change. The traveling highlight is decorative. Refreshed every twelve hours, not a live ticker. Private and local-only work is outside this count.`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">JPEG111 / ${value} total public commits</title><desc id="desc">${esc(desc)}</desc><defs><linearGradient id="number" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f3f7ff"/><stop offset=".72" stop-color="#e5ffd1"/><stop offset="1" stop-color="#c5ff5c"/></linearGradient><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c5ff5c" stop-opacity=".17"/><stop offset="1" stop-color="#c5ff5c" stop-opacity="0"/></linearGradient><linearGradient id="edge"><stop stop-color="#324c65"/><stop offset=".65" stop-color="#192b3d"/><stop offset="1" stop-color="#c5ff5c" stop-opacity=".6"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#21334b" stroke-opacity=".19"/></pattern></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}.number{animation:arrive 1s both cubic-bezier(.2,.7,.2,1)}.signal{animation:travel 8s linear infinite}.pulse{animation:pulse 3s ease-in-out infinite}@keyframes arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}@keyframes travel{from{stroke-dashoffset:3}to{stroke-dashoffset:-97}}@keyframes pulse{50%{opacity:.15;r:21px}}@media(prefers-reduced-motion:reduce){.number,.signal,.pulse{animation:none!important}}</style><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="22" fill="${C.bg}" stroke="url(#edge)"/><rect x="2" y="2" width="${w-4}" height="${h-4}" rx="22" fill="url(#grid)"/>${b}</svg>\n`;
 }
