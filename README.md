@@ -1,10 +1,10 @@
 <a id="top"></a>
 
 <picture>
-  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/intro-mobile-light.svg?v=public-20261101">
-  <source media="(max-width: 600px)" srcset="assets/profile/intro-mobile-dark.svg?v=public-20261101">
-  <source media="(prefers-color-scheme: light)" srcset="assets/profile/intro-light.svg?v=public-20261101">
-  <img src="assets/profile/intro-dark.svg?v=public-20261101" width="100%" alt="JPEG111. Self-hosted tools. Desktop software.">
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/intro-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/intro-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/intro-light.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/intro-dark.svg" width="100%" alt="JPEG111. Self-hosted tools. Desktop software.">
 </picture>
 
 <p align="center">
@@ -39,10 +39,10 @@ My released projects include **anyDeploy**, for deploying to hardware you own, a
 
 <a href="https://github.com/JPEG111/anydeploy-releases">
 <picture>
-  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/anydeploy-mobile-light.svg?v=public-20261101">
-  <source media="(max-width: 600px)" srcset="assets/profile/anydeploy-mobile-dark.svg?v=public-20261101">
-  <source media="(prefers-color-scheme: light)" srcset="assets/profile/anydeploy-light.svg?v=public-20261101">
-  <img src="assets/profile/anydeploy-dark.svg?v=public-20261101" width="100%" alt="anyDeploy: deploy a repository to hardware you own. Open the project.">
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/anydeploy-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/anydeploy-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/anydeploy-light.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/anydeploy-dark.svg" width="100%" alt="anyDeploy: deploy a repository to hardware you own. Open the project.">
 </picture>
 </a>
 
@@ -54,10 +54,10 @@ My released projects include **anyDeploy**, for deploying to hardware you own, a
 
 <a href="https://github.com/JPEG111/orbs-release">
 <picture>
-  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/orbs-mobile-light.svg?v=public-20261101">
-  <source media="(max-width: 600px)" srcset="assets/profile/orbs-mobile-dark.svg?v=public-20261101">
-  <source media="(prefers-color-scheme: light)" srcset="assets/profile/orbs-light.svg?v=public-20261101">
-  <img src="assets/profile/orbs-dark.svg?v=public-20261101" width="100%" alt="Orbs: observe client state, prepare a queue, and recover from interruptions. Open the project.">
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/orbs-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/orbs-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/orbs-light.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/8ce3c8390d5119773db51e1ed35e4e4d1e693b71/assets/profile/orbs-dark.svg" width="100%" alt="Orbs: observe client state, prepare a queue, and recover from interruptions. Open the project.">
 </picture>
 </a>
 
