@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - tools/render-activity.mjs
+      - tools/render-commit-counter.mjs
       - .github/workflows/profile-activity.yml
 
 concurrency:

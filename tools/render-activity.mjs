@@ -1,6 +1,7 @@
 import {execFileSync} from 'node:child_process';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+import {renderCommitCounter} from './render-commit-counter.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -41,7 +42,11 @@ for (const repo of user.repositories.nodes) if (repo.primaryLanguage) {
   const old=languages.get(name) || {name,color,count:0}; old.count++; languages.set(name,old);
 }
 const ranked=[...languages.values()].sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name));
-const summary={date:days.at(-1).date,total:calendar.totalContributions,current,best,languages:ranked};
+const commitQuery=`author:${login} is:public`;
+const commitSearch=fixture!==-1 ? response.commitSearch : api('GET',`search/commits?q=${encodeURIComponent(commitQuery)}&per_page=1`);
+if(commitSearch?.incomplete_results!==false || !Number.isSafeInteger(commitSearch.total_count) || commitSearch.total_count<0)throw new Error('Public commit search incomplete; keeping the previous counter');
+const totalPublicCommits=commitSearch.total_count;
+const summary={date:days.at(-1).date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const C={bg:'#05070d',line:'#243143',muted:'#94a6bd',white:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff'};
 const text=(x,y,s,size=20,color=C.white,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;
@@ -75,6 +80,7 @@ function render(mobile) {
 const out=root+'.local/generated-activity/';
 await mkdir(out,{recursive:true});
 for (const m of [false,true]) await writeFile(out+`activity${m?'-mobile':''}.svg`,render(m));
+for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m));
 await writeFile(out+'summary.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify(summary));
 
@@ -86,7 +92,7 @@ if (args.includes('--publish')) {
   try { parent=api('GET',`repos/${repo}/git/ref/heads/${branch}`).object.sha; }
   catch { throw new Error('Activity branch missing; initialize it before running the publisher'); }
   const old=api('GET',`repos/${repo}/git/commits/${parent}`);
-  const entries=await Promise.all(['activity.svg','activity-mobile.svg','summary.json'].map(async path=>({path,mode:'100644',type:'blob',content:await readFile(out+path,'utf8')})));
+  const entries=await Promise.all(['activity.svg','activity-mobile.svg','commit-counter.svg','commit-counter-mobile.svg','summary.json'].map(async path=>({path,mode:'100644',type:'blob',content:await readFile(out+path,'utf8')})));
   const tree=api('POST',`repos/${repo}/git/trees`,{base_tree:old.tree.sha,tree:entries});
   if(tree.sha!==old.tree.sha){
     const commit=api('POST',`repos/${repo}/git/commits`,{message:'Refresh profile activity',tree:tree.sha,parents:[parent]});

@@ -1,5 +1,12 @@
 <a id="top"></a>
 
+<a href="https://github.com/search?q=author%3AJPEG111+is%3Apublic&amp;type=commits">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter-mobile.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter.svg" width="100%" alt="Total public commits authored by JPEG111 across all years, as indexed by GitHub on repository default branches. Open the matching commit search.">
+</picture>
+</a>
+
 <a href="https://github.com/JPEG111?tab=overview">
 <picture>
   <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity-mobile.svg">
