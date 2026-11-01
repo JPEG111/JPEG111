@@ -1,73 +1,153 @@
-<div align="center">
+<a id="top"></a>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6366f1,100:10b981&height=180&section=header&text=Hi,%20I'm%20Skandar&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=36" alt="Hi, I'm Skandar" width="100%" />
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/intro-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="assets/profile/intro-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/profile/intro-light.svg">
+  <img src="assets/profile/intro-dark.svg" width="100%" alt="JPEG111. I follow the question. Then build the system.">
+</picture>
 
-<a href="https://github.com/JPEG111">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1200&color=6366F1&center=true&vCenter=true&width=520&lines=Building+self-hosted+tools+for+real+hardware;Turning+old+phones+into+servers;Shipping+desktop+apps+for+Windows+%26+Linux" alt="Typing intro" />
+<p align="center">
+  <a href="#selected-systems"><kbd>01 / Projects</kbd></a> &nbsp;
+  <a href="#follow-a-question"><kbd>02 / Thinking</kbd></a> &nbsp;
+  <a href="#build-trail"><kbd>03 / Evidence</kbd></a> &nbsp;
+  <a href="#next-coordinates"><kbd>04 / Roadmap</kbd></a>
+</p>
+
+**Skandar · Netherlands**
+
+I build self-hosted tools, desktop apps and AI workflows. I like the point where software meets something real: a spare phone, a running desktop client, an editable 3D scene.
+
+I build with AI, and I keep asking follow-up questions. What does this depend on? What happens when it fails? What would prove it works? The answer usually becomes another piece of the system.
+
+## Selected systems
+
+<a href="https://github.com/JPEG111/anydeploy-releases">
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/anydeploy-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="assets/profile/anydeploy-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/profile/anydeploy-light.svg">
+  <img src="assets/profile/anydeploy-dark.svg" width="100%" alt="anyDeploy: a repository becomes a deployment on hardware you own. Open the project.">
+</picture>
 </a>
 
-</div>
+**An old phone can have another job.** anyDeploy brings deployment to Android, Raspberry Pi, Linux and Windows targets. Public Windows and Linux releases; the next Studio and agent workflows are in development.
 
----
+[Project](https://github.com/JPEG111/anydeploy-releases) · [Downloads](https://github.com/JPEG111/anydeploy-releases/releases/latest)
 
-### 🚀 Featured project
+<a href="https://github.com/JPEG111/orbs-release">
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/orbs-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="assets/profile/orbs-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/profile/orbs-light.svg">
+  <img src="assets/profile/orbs-dark.svg" width="100%" alt="Orbs: observe the client, prepare the queue, recover from changing state. Open the project.">
+</picture>
+</a>
 
-<table>
-<tr>
-<td width="80" align="center">
-  <a href="https://github.com/JPEG111/anydeploy-releases"><img src="https://raw.githubusercontent.com/JPEG111/anydeploy-releases/main/social-preview.png" width="72" alt="anyDeploy" /></a>
-</td>
-<td>
+**The interesting part is everything around the button.** Orbs is Windows tooling around Discord Quests: a visual queue, English / Egyptian Arabic UI, recovery, packaging and updates.
 
-**[anyDeploy](https://github.com/JPEG111/anydeploy-releases)**: a self-hosted PaaS desktop app. Deploy any GitHub repo to your own hardware: an old Android phone, a Raspberry Pi, a Linux box, or a Windows PC. No monthly bills, no telemetry.
+The **1.21.14 checkpoint** verified a **657-test suite against source and compiled builds**, with native/browser fixtures and selected live-client checks. [Release notes](https://github.com/JPEG111/orbs-release/releases/tag/v1.21.14) · [Verification context](docs/ACHIEVEMENTS.md#orbs--making-the-whole-lifecycle-work)
 
-[![Download](https://img.shields.io/github/v/release/JPEG111/anydeploy-releases?label=download&style=flat-square&color=6366f1)](https://github.com/JPEG111/anydeploy-releases/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/JPEG111/anydeploy-releases/total?style=flat-square&color=10b981)](https://github.com/JPEG111/anydeploy-releases/releases)
+<a href="#lab-notes">
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/lab-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="assets/profile/lab-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/profile/lab-light.svg">
+  <img src="assets/profile/lab-dark.svg" width="100%" alt="The open questions: agent memory, 3D reconstruction and connected knowledge. These are ongoing experiments.">
+</picture>
+</a>
 
-</td>
-</tr>
-</table>
+<details id="lab-notes">
+<summary><b>Inside the lab / local artifacts, prototypes and open questions</b></summary>
 
----
+| Thread | What I've worked on | Current stage |
+| :--- | :--- | :--- |
+| **OmniAgent** | Local tools, controlled operations and companion workflows | Local builds; customer acceptance still open |
+| **Strategy OS** | Plans that connect decisions, evidence, memory and workflow gates | Architecture exploration |
+| **Local image-to-3D** | Multiview experiments and reference-specific Blender reconstructions | Editable scenes and GLBs; dimensions inferred |
+| **Life OS** | Android quests and deterministic progression | Prototype |
+| **LIFE atlas** | Linked Markdown, Obsidian Canvas/Bases and an offline 3D browser map | Dated project inventory |
 
-### 🧰 Tech stack
+These are different stages of work. Public downloads are linked on the two projects above.
 
-<div align="center">
+</details>
 
-**Languages**<br/>
-<img src="https://skillicons.dev/icons?i=ts,js,py,go,rust,html&perline=8" alt="TypeScript, JavaScript, Python, Go, Rust, HTML" />
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset="assets/profile/atlas-mobile-light.svg">
+  <source media="(max-width: 600px)" srcset="assets/profile/atlas-mobile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/profile/atlas-light.svg">
+  <img src="assets/profile/atlas-dark.svg" width="100%" alt="Four connected interests: own the hardware, retain decisions, survive real state, and make ideas inspectable. Connections are thematic.">
+</picture>
 
-**Frameworks & cloud**<br/>
-<img src="https://skillicons.dev/icons?i=nextjs,tailwind,graphql,aws,gcp,cloudflare,debian&perline=8" alt="Next.js, Tailwind, GraphQL, AWS, Google Cloud, Cloudflare, Debian" />
+## Follow a question
 
-**Tools & creative**<br/>
-<img src="https://skillicons.dev/icons?i=vscode,visualstudio,blender,ae,ai&perline=8" alt="VS Code, Visual Studio, Blender, After Effects, Illustrator" />
+I don't usually stop at the first explanation. **Open the question and follow it deeper:**
 
-</div>
+<details>
+<summary><b>Why did the agent forget?</b></summary>
 
----
+Did it fail to save the decision, fail to retrieve it, or retrieve it and ignore it? Those need different fixes.
 
-### 📊 GitHub stats
+<details>
+<summary><b>What should the system around the agent remember?</b></summary>
 
-<div align="center">
+The decision, its source, the alternatives, what failed, and the current state of the work.
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs?username=JPEG111&layout=compact&langs_count=6&theme=dracula&hide_border=true&custom_title=I%20Vibe%20Code..." height="165" alt="Top languages" />
-<img src="https://streak-stats.demolab.com?user=JPEG111&theme=dracula&hide_border=true" height="165" alt="GitHub streak" />
+<details>
+<summary><b>What has to be true before it can take the next step?</b></summary>
 
-</div>
+That's the design problem I keep coming back to: make prerequisites and evidence part of the workflow. My Lego-machine analogy is that a missing piece should become visible before the next piece goes in.
 
----
+<details>
+<summary><b>And what happens when that memory gets too big?</b></summary>
+
+Now the questions are retrieval quality, context growth, stale decisions and the cost of recording too much. That needs a bounded experiment with measurable failures.
+
+**A better question is another way into the build.**
+
+</details>
+</details>
+</details>
+</details>
+
+This habit also runs through my long research conversations, including discussions around **Andoria**: following questions across subjects, comparing explanations, and staying willing to change the answer when the evidence changes.
+
+## Build trail
+
+- [x] **Hardware → hosting:** took phone-hosting ideas into anyDeploy's public Windows and Linux release artifacts.
+- [x] **Feature → lifecycle:** built bilingual Orbs workflows, recovery and data-preserving installer/update checks.
+- [x] **Image → editable artifact:** changed methods when generated geometry missed the reference; produced Blender scenes and GLB exports.
+- [x] **Folders → connected knowledge:** built a project atlas with native Obsidian views and a separate offline 3D view.
+- [ ] **Memory → dependable execution:** prove a bounded workflow that retrieves decisions and checks prerequisites across a long task.
+
+[Read the achievement notes →](docs/ACHIEVEMENTS.md)
+
+## Next coordinates
+
+| NOW | NEXT | EXPLORE |
+| :--- | :--- | :--- |
+| Close observed onboarding and client-state gaps in the main products. | Test persistent decisions and workflow gates on one bounded task. | Compare creative outputs against references and make the builds repeatable. |
+| **Progress:** fresh evidence from a supported real workflow. | **Progress:** fewer missed decisions, stale facts and repeated mistakes. | **Progress:** preserved candidates, explained choices, reproducible exports. |
+
+Direction reviewed **1 November 2026**, without promised delivery dates. [Full roadmap →](docs/ROADMAP.md)
+
+<details>
+<summary><b>Workbench / tools picked for the problem</b></summary>
+
+`TypeScript` `React` `Electron` `Python` `Node.js` `PowerShell` `Linux` `SSH` `Blender` `Markdown` `Obsidian`
+
+Interfaces, automation, local tools, hardware experiments and creative pipelines. The connections between them are where I spend most of my time.
+
+</details>
+
+<details>
+<summary><b>One more loop / the contribution arcade</b></summary>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
-  <img alt="Pac-Man eating my contribution graph" src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg" width="100%" alt="Pac-Man moving through my GitHub contributions.">
 </picture>
 
-<div align="center">
+</details>
 
-<img src="https://komarev.com/ghpvc/?username=JPEG111&style=flat-square&color=6366f1&label=profile+views" alt="Profile views" />
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:6366f1&height=100&section=footer" width="100%" alt="" />
-
-</div>
+<p align="center"><sub>Still following the question.</sub><br><a href="#top">↳ Back to the beginning</a> · <a href="docs/DESIGN.md">Built for the README</a></p>
