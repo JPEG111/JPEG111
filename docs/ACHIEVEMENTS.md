@@ -1,6 +1,6 @@
-# Things I've taken from idea to artifact
+# From idea to artifact
 
-Reviewed 1 November 2026. These checkpoints distinguish public releases, local artifacts and architecture exploration.
+Software releases, research tools and the decisions behind them. Reviewed 1 November 2026; the checkpoints below distinguish released software, existing artifacts and ongoing design work.
 
 ## anyDeploy / hardware you already own
 
@@ -35,11 +35,27 @@ These counts come from the project's local verification records. Public release 
 
 [Published 1.21.14 checkpoint](https://github.com/JPEG111/orbs-release/releases/tag/v1.21.14)
 
+## Research workbench / from 98 sources to a usable archive
+
+A long-running investigation into history and institutions became a source-processing and visualization project.
+
+- **98 Arabic subtitle files** in the source archive.
+- A Python merger that removes subtitle formatting and combines the spoken text into a searchable file of about **1.98 MB**.
+- An investigation dashboard with a **98-entry transcript index** and **98 individual text files**, alongside timeline, map and connection views in its source.
+
+The counts and files were checked on 1 November 2026. The dashboard was not rerun end to end during that source review. This checkpoint demonstrates the archive and tooling; claims in documentary material require their own evaluation.
+
+## Visual problem-solving / make the parts share a constraint
+
+While iterating on a project roadmap, the curve and its dot centers repeatedly disagreed. I proposed coordinating the dot positions with the line. The resulting implementation places the dots and constructs a curve through their centers.
+
+This was AI-assisted development: I specified the relationship, reviewed the output, identified failures and directed the correction. It is a useful example of the design and debugging work behind a finished interface.
+
 ## Local image-to-3D / knowing when to change methods
 
 Experimented with local multiview generation, then rejected weak results for reference-specific geometry. Deterministic Blender reconstruction produced editable scenes and GLB exports for server, tower, mini-PC and SBC work.
 
-The SBC work includes a fan animation with blades and hub moving together while the housing stays fixed. Dimensions and unseen surfaces are inferred; this isn't a manufacturing-accuracy claim or a completed general-purpose image-to-3D system.
+Historical project records include an SBC fan animation with blades and hub moving together while the housing stays fixed. Dimensions and unseen surfaces are inferred. This remains experimental reconstruction work, without a public download or manufacturing-accuracy claim.
 
 ## LIFE atlas / making the project history navigable
 
@@ -53,4 +69,4 @@ Long research and design conversations led to a recurring question: how should a
 
 Strategy OS explores connected plans, evidence and workflow gates. OmniAgent has local implementation and verification work. A complete autonomous operating system or fully accepted customer workflow isn't claimed here.
 
-[Roadmap](ROADMAP.md) · [Profile](../README.md)
+[The project story](STORY.md) · [Roadmap](ROADMAP.md) · [Profile](../README.md)
