@@ -42,3 +42,13 @@ The first command fetches and validates a complete snapshot, generates all live 
 The workflow uses the existing repository token and contents permission. Public commit history uses author:JPEG111 is:public, a before-window baseline and twelve non-overlapping author-date ranges. It covers indexed default-branch matches across all years, excluding private/local-only work. Calendar contributions remain a separate measure. [GitHub commit-search semantics](https://docs.github.com/en/search-github/searching-on-github/searching-commits), [public release API](https://docs.github.com/en/rest/releases/releases#get-the-latest-release).
 
 [Back to profile](../README.md)
+
+## Private commit aggregate and language icon
+
+The commit panel keeps the public and private indexed counts separate. The cumulative curve remains public-only; no deduplicated combined total is claimed. Private commit search has the same default-branch/indexing limits and covers private matches visible to the authenticated owner. Local-only and unindexed work is excluded.
+
+The owner explicitly approved publication of the aggregate private count. A small local collector verifies the signed-in account, asks GitHub CLI for only total_count/incomplete_results, and publishes an allowlisted private-metrics.json containing the count, scope and its own UTC timestamp. Repository names, commit messages, hashes, URLs and credentials are excluded. The public Actions job consumes this aggregate and never receives a private-access credential.
+
+The local refresh runs every twelve hours and at sign-in, then dispatches the existing public refresh. It uses the owner's existing GitHub CLI sign-in and a hash-pinned standalone collector on that computer; it never executes newly changed repository code with that credential. The private count can pause while the computer is off, signed out, offline or needs authentication. Its visible timestamp always shows when it was actually verified. The regular public job continues independently and preserves that original private timestamp.
+
+The in-panel language badge ranks GitHub-classified CODE BYTES across owned, public, non-fork repositories. It is not repository count, commit count, time spent coding or the full toolchain. Name, colour, icon and percentage change with the ranking. Common language symbols have inline vector/text tiles; unknown languages use their initials. Missing/incomplete language data fails without changing the last successful published panels. An account with no classified public code shows an explicit unclassified state.

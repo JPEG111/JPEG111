@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {setTimeout as backoff} from 'node:timers/promises';
 import {renderCommitCounter,historyBuckets,buildCommitHistory} from './render-commit-counter.mjs';
 import {renderProfile} from './render-profile.mjs';
+import {validateAccountMetrics} from './collect-account-metrics.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -14,7 +15,7 @@ const fixture = args.indexOf('--input');
 let response;
 if (fixture !== -1) response = JSON.parse(await readFile(args[fixture + 1], 'utf8'));
 else {
-  const query = `query($cursor:String){user(login:"${login}"){contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date contributionCount}}}} repositories(first:100,after:$cursor,privacy:PUBLIC,ownerAffiliations:OWNER,isFork:false){pageInfo{hasNextPage endCursor} nodes{primaryLanguage{name color}}}}}`;
+  const query = `query($cursor:String){user(login:"${login}"){contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date contributionCount}}}} repositories(first:100,after:$cursor,privacy:PUBLIC,ownerAffiliations:OWNER,isFork:false){pageInfo{hasNextPage endCursor} nodes{primaryLanguage{name color} languages(first:100){pageInfo{hasNextPage} edges{size node{name color}}}}}}}`;
   const nodes = [];
   let cursor = null;
   for (let page=0; page<100; page++) {
@@ -44,6 +45,24 @@ for (const repo of user.repositories.nodes) if (repo.primaryLanguage) {
   const old=languages.get(name) || {name,color,count:0}; old.count++; languages.set(name,old);
 }
 const ranked=[...languages.values()].sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name));
+const languageBytes=new Map();
+for(const repo of user.repositories.nodes){
+  if(!repo.languages||repo.languages.pageInfo?.hasNextPage||!Array.isArray(repo.languages.edges))throw new Error('Incomplete language bytes');
+  for(const edge of repo.languages.edges){
+    if(!Number.isSafeInteger(edge.size)||edge.size<0||typeof edge.node?.name!=='string')throw new Error('Invalid language bytes');
+    const prior=languageBytes.get(edge.node.name)||{name:edge.node.name,color:edge.node.color,bytes:0};prior.bytes+=edge.size;languageBytes.set(prior.name,prior);
+  }
+}
+const byteRanked=[...languageBytes.values()].sort((a,b)=>b.bytes-a.bytes||a.name.localeCompare(b.name));
+const byteTotal=byteRanked.reduce((sum,l)=>sum+l.bytes,0);
+const topLanguage=byteTotal?{...byteRanked[0],share:Math.round(byteRanked[0].bytes/byteTotal*1000)/10,scope:'Public owned non-fork repositories / GitHub language bytes'}:null;
+const ai=args.indexOf('--account');
+let accountInput=fixture!==-1?response.accountMetrics:null;
+if(fixture===-1){
+  if(ai!==-1)accountInput=JSON.parse(await readFile(args[ai+1],'utf8'));
+  else {const data=api('GET',`repos/${login}/${login}/contents/private-metrics.json?ref=profile-activity`);accountInput=JSON.parse(Buffer.from(data.content,'base64').toString('utf8'));}
+}
+const accountMetrics=validateAccountMetrics(accountInput);
 const commitQuery=`author:${login} is:public`;
 const commitSearch=fixture!==-1 ? response.commitSearch : api('GET',`search/commits?q=${encodeURIComponent(commitQuery)}&per_page=1`);
 if(commitSearch?.incomplete_results!==false || !Number.isSafeInteger(commitSearch.total_count) || commitSearch.total_count<0)throw new Error('Public commit search incomplete; keeping the previous counter');
@@ -77,7 +96,7 @@ for(const [key,repo] of featured){
   if(!release||release.draft||release.prerelease||typeof release.tag_name!=='string'||release.tag_name.length>30||!/^\d{4}-\d{2}-\d{2}T/.test(release.published_at)||!Array.isArray(release.assets)||!release.assets.length)throw new Error('Incomplete public release snapshot; keeping previous images');
   releases.push({key,repo,tag:release.tag_name,published:release.published_at.slice(0,10),files:release.assets.length});
 }
-const summary={date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery,commitHistory,releases,recentDays:days.slice(-56)};
+const summary={date,total:calendar.totalContributions,current,best,languages:ranked,totalPublicCommits,commitQuery,commitHistory,releases,recentDays:days.slice(-56),accountMetrics,topLanguage};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const C={bg:'#05070d',line:'#243143',muted:'#94a6bd',white:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff'};
 const text=(x,y,s,size=20,color=C.white,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;
@@ -112,7 +131,7 @@ const out=root+'.local/generated-activity/';
 const profileFiles=renderProfile(summary); // Validate every scene before overwriting any file.
 await mkdir(out,{recursive:true});
 for (const m of [false,true]) await writeFile(out+`activity${m?'-mobile':''}.svg`,render(m));
-for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m,commitHistory));
+for (const m of [false,true]) await writeFile(out+`commit-counter${m?'-mobile':''}.svg`,renderCommitCounter(totalPublicCommits,summary.date,m,commitHistory,{accountMetrics,topLanguage}));
 for(const [name,content] of Object.entries(profileFiles))await writeFile(out+name,content);
 await writeFile(out+'summary.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify(summary));

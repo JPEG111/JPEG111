@@ -3,6 +3,19 @@ const C={bg:'#05070d',ink:'#f3f7ff',lime:'#c5ff5c',cyan:'#54d9ff',line:'#233448'
 const tx=(x,y,s,n=22,fill=C.ink,extra='')=>`<text x="${x}" y="${y}" font-size="${n}" fill="${fill}" ${extra}>${esc(s)}</text>`;
 const mono=(x,y,s,n=20,fill=C.muted,extra='')=>tx(x,y,s,n,fill,`class="mono" letter-spacing="1.2" ${extra}`);
 const iso=d=>d.toISOString().slice(0,10);
+const symbols={JavaScript:'JS',TypeScript:'TS',Python:'Py',Go:'Go',Rust:'Rs',Java:'Jv',HTML:'<>',CSS:'CSS',Shell:'sh',PowerShell:'PS',Ruby:'Rb',PHP:'php',Dart:'Da',Swift:'Sw',Kotlin:'Kt','C++':'C++','C#':'C#',C:'C'};
+
+function languageBadge(language,x,y,w,h,mobile){
+  const color=/^#[0-9a-f]{6}$/i.test(language?.color||'')?language.color:C.cyan;
+  const name=language?.name||'Unclassified',symbol=symbols[name]||name.slice(0,2);
+  let b=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="#101b2a" stroke="${C.line}"/>`;
+  b+=mono(x+16,y+23,'MOST-USED PUBLIC LANGUAGE',mobile?12:14,C.muted);
+  b+=`<rect x="${x+16}" y="${y+38}" width="48" height="48" rx="10" fill="${color}"/>`;
+  b+=tx(x+40,y+70,symbol,Math.min(23,42/(symbol.length*.7)),name==='JavaScript'?'#161b22':C.ink,'class="mono" font-weight="850" text-anchor="middle"');
+  b+=tx(x+80,y+62,name,Math.min(24,(w-96)/(name.length*.6)),C.ink,'font-weight="700"');
+  b+=mono(x+80,y+85,language?language.share.toFixed(1)+'% OF CODE BYTES':'NO CLASSIFIED CODE',mobile?11:12,C.muted);
+  return b;
+}
 
 export function historyBuckets(date) {
   const now=new Date(date+'T00:00:00Z');
@@ -26,26 +39,39 @@ export function buildCommitHistory(total,date,before,counts) {
   return {buckets:buckets.map((b,i)=>({...b,count:counts[i]})),points};
 }
 
-export function renderCommitCounter(count,date,mobile=false,history) {
+export function renderCommitCounter(count,date,mobile=false,history,metrics) {
   if(!Number.isSafeInteger(count)||count<0)throw new Error('Invalid commit count');
   if(!history?.points?.length||history.points.at(-1).value!==count)throw new Error('Missing matching commit history');
-  const w=mobile?720:1440,h=mobile?790:730,pad=mobile?36:52;
+  const account=metrics?.accountMetrics,language=metrics?.topLanguage;
+  if(!Number.isSafeInteger(account?.totalPrivateCommits)||account.totalPrivateCommits<0||!Number.isFinite(Date.parse(account.updatedAt)))throw new Error('Missing private commit aggregate');
+  if(language&&(!Number.isFinite(language.share)||language.share<0||language.share>100||typeof language.name!=='string'))throw new Error('Invalid language leader');
+  const w=mobile?720:1440,h=mobile?990:730,pad=mobile?36:52;
   const value=count.toLocaleString('en-US');
   const numberSize=Math.min(mobile?286:360,(mobile?w-pad*2:840)/(value.length*.67));
   const numberY=mobile?378:405;
   let b=mono(pad,46,'JPEG111 / COMMIT ARCHIVE',mobile?17:20,C.cyan);
   if(!mobile)b+=mono(w-pad,46,date+' / UTC',18,C.muted,'text-anchor="end"');
-  b+=tx(pad,mobile?111:125,'TOTAL COMMITS',mobile?51:76,C.ink,'font-weight="850" letter-spacing="-2"');
+  b+=tx(pad,mobile?111:125,'COMMIT ARCHIVE',mobile?51:76,C.ink,'font-weight="850" letter-spacing="-2"');
   b+=`<g class="number">${tx(pad-6,numberY,value,numberSize,'url(#number)','font-weight="900" letter-spacing="-14"')}</g>`;
-  if(mobile)b+=mono(pad,435,'PUBLIC / ALL YEARS',22,C.lime);
-  else {
-    b+=`<path d="M1000 215v180" stroke="${C.line}"/>`;
-    b+=mono(1042,250,'PUBLIC COMMITS',23,C.lime)+mono(1042,289,'ACROSS ALL YEARS',19);
-    const growth='+'+(count-history.points[0].value).toLocaleString('en-US');
-    b+=tx(1042,359,growth,Math.min(60,(w-pad-1042)/(growth.length*.65)),C.ink,'font-weight="750"');
-    b+=mono(1042,394,'IN THIS WINDOW',18);
+  const privateValue=account.totalPrivateCommits.toLocaleString('en-US');
+  const stamp=account.updatedAt.slice(0,16).replace('T',' ')+' UTC';
+  if(mobile){
+    b+=mono(pad,435,'PUBLIC COMMITS / ALL YEARS',22,C.lime);
+    b+=`<rect x="36" y="468" width="314" height="150" rx="12" fill="#0d1929" stroke="${C.line}"/>`;
+    b+=mono(52,494,'PRIVATE COMMITS / ALL YEARS',13,C.cyan);
+    b+=tx(52,568,privateValue,Math.min(76,275/(privateValue.length*.65)),C.cyan,'font-weight="800" letter-spacing="-3"');
+    b+=mono(52,601,stamp,12,C.muted);
+    b+=languageBadge(language,370,468,314,150,true);
   }
-  const gx=pad,gy=mobile?520:500,gw=w-pad*2,gh=mobile?113:112;
+  else {
+    b+=`<path d="M1000 190v250" stroke="${C.line}"/>`;
+    b+=mono(1042,210,'PRIVATE COMMITS / ALL YEARS',16,C.cyan);
+    b+=tx(1042,300,privateValue,Math.min(100,(w-pad-1042)/(privateValue.length*.65)),C.cyan,'font-weight="800" letter-spacing="-3"');
+    b+=mono(1042,327,stamp,13,C.muted);
+    b+=languageBadge(language,1042,347,346,96,false);
+    b+=mono(pad,445,'PUBLIC COMMITS / ALL YEARS',19,C.lime);
+  }
+  const gx=pad,gy=mobile?720:500,gw=w-pad*2,gh=mobile?113:112;
   const max=Math.max(1,count);
   const firstDate=Date.parse(history.points[0].date),span=Math.max(1,Date.parse(date)-firstDate);
   const coords=history.points.map(p=>[gx+(Date.parse(p.date)-firstDate)/span*gw,gy+gh-p.value/max*gh]);
@@ -58,8 +84,8 @@ export function renderCommitCounter(count,date,mobile=false,history) {
   coords.forEach(([x,y],i)=>{b+=`<circle cx="${x}" cy="${y}" r="${i===coords.length-1?6:3}" fill="${i===coords.length-1?C.lime:C.bg}" stroke="${C.lime}" stroke-width="2"><title>${history.points[i].date}: ${history.points[i].value} cumulative commits</title></circle>`;});
   b+=mono(pad,gy+gh+30,history.points[0].date.slice(0,7),16)+mono(w-pad,gy+gh+30,date.slice(0,7),16,C.muted,'text-anchor="end"');
   b+=`<path d="M${pad} ${h-67}H${w-pad}" stroke="${C.line}"/>`;
-  b+=mono(pad,h-35,mobile?'DEFAULT BRANCHES':'PUBLIC DEFAULT BRANCHES',mobile?16:19,C.muted);
+  b+=mono(pad,h-35,mobile?'INDEXED DEFAULT BRANCHES':'PUBLIC + PRIVATE / INDEXED DEFAULT BRANCHES',mobile?14:17,C.muted);
   b+=mono(w-pad,h-35,'VIEW COMMITS ↗',mobile?17:20,C.lime,'text-anchor="end"');
-  const desc=`${count} public commits attributed to JPEG111 across all years on indexed repository default branches. Updated ${date} UTC. The line shows cumulative public commits at monthly intervals over the last twelve calendar months, using commit author dates. Its shape is generated from actual counts and changes when those counts change. Refreshed every twelve hours, not a live ticker. Private and local-only work is outside this count.`;
+  const desc=`${count} public commits attributed to JPEG111 across all years on indexed repository default branches. Public snapshot ${date} UTC. Separately, ${account.totalPrivateCommits} indexed private default-branch commits accessible to the owner, verified ${account.updatedAt}. Only that aggregate is published. These are separate visibility scopes, not an asserted deduplicated combined total. ${language?'Most-used public language: '+language.name+', '+language.share.toFixed(1)+' percent of GitHub-classified language bytes in public owned non-fork repositories.':'No classified public language data.'} The line shows cumulative PUBLIC commits at monthly author-date points over twelve calendar months. The public job refreshes every twelve hours; private updates are collected on the owner computer and retain their own verification timestamp. Local-only and unindexed commits are excluded.`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">JPEG111 / ${value} total public commits</title><desc id="desc">${esc(desc)}</desc><defs><linearGradient id="number" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f3f7ff"/><stop offset=".72" stop-color="#e5ffd1"/><stop offset="1" stop-color="#c5ff5c"/></linearGradient><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c5ff5c" stop-opacity=".17"/><stop offset="1" stop-color="#c5ff5c" stop-opacity="0"/></linearGradient><linearGradient id="edge"><stop stop-color="#324c65"/><stop offset=".65" stop-color="#192b3d"/><stop offset="1" stop-color="#c5ff5c" stop-opacity=".6"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#21334b" stroke-opacity=".19"/></pattern></defs><style>text{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"Cascadia Code",Consolas,monospace}</style><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="22" fill="${C.bg}" stroke="url(#edge)"/><rect x="2" y="2" width="${w-4}" height="${h-4}" rx="22" fill="url(#grid)"/>${b}</svg>\n`;
 }
