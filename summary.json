@@ -10,7 +10,7 @@
       "count": 1
     }
   ],
-  "totalPublicCommits": 103,
+  "totalPublicCommits": 104,
   "commitQuery": "author:JPEG111 is:public",
   "commitHistory": {
     "buckets": [
@@ -72,7 +72,7 @@
       {
         "start": "2026-11-01",
         "end": "2026-11-01",
-        "count": 19
+        "count": 20
       }
     ],
     "points": [
@@ -126,7 +126,7 @@
       },
       {
         "date": "2026-11-01",
-        "value": 103
+        "value": 104
       }
     ]
   },
@@ -371,5 +371,19 @@
       "date": "2026-11-01",
       "contributionCount": 20
     }
-  ]
+  ],
+  "accountMetrics": {
+    "schemaVersion": 1,
+    "login": "JPEG111",
+    "totalPrivateCommits": 1633,
+    "updatedAt": "2026-11-01T22:03:55.531Z",
+    "scope": "Indexed private default-branch commits accessible to the authenticated owner"
+  },
+  "topLanguage": {
+    "name": "JavaScript",
+    "color": "#f1e05a",
+    "bytes": 44407,
+    "share": 100,
+    "scope": "Public owned non-fork repositories / GitHub language bytes"
+  }
 }
