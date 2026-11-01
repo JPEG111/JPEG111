@@ -8,11 +8,11 @@
 </picture>
 
 <p align="center">
-  <a href="#selected-systems"><kbd>Projects</kbd></a> &nbsp;
-  <a href="#research-workbench"><kbd>Research</kbd></a> &nbsp;
-  <a href="#follow-a-question"><kbd>How I think</kbd></a> &nbsp;
-  <a href="#build-trail"><kbd>My story</kbd></a> &nbsp;
-  <a href="#next-coordinates"><kbd>What's next</kbd></a>
+  <a href="#user-content-selected-systems"><kbd>Projects</kbd></a> &nbsp;
+  <a href="#user-content-research-workbench"><kbd>Research</kbd></a> &nbsp;
+  <a href="#user-content-follow-a-question"><kbd>How I think</kbd></a> &nbsp;
+  <a href="#user-content-build-trail"><kbd>My story</kbd></a> &nbsp;
+  <a href="#user-content-next-coordinates"><kbd>What's next</kbd></a>
 </p>
 
 **Skandar · self-taught software builder · Netherlands**
@@ -171,4 +171,4 @@ Most source repositories are private. The release links above are the public ent
 
 </details>
 
-<p align="center"><sub>Still following the question.</sub><br><a href="#top">↑ Back to the beginning</a> · <a href="docs/DESIGN.md">About this README</a></p>
+<p align="center"><sub>Still following the question.</sub><br><a href="#user-content-top">↑ Back to the beginning</a> · <a href="docs/DESIGN.md">About this README</a></p>
