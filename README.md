@@ -1,5 +1,12 @@
 <a id="top"></a>
 
+<a href="https://github.com/JPEG111?tab=overview">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity-mobile.svg">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/activity.svg" width="100%" alt="GitHub activity: contributions over the last twelve months, current streak, best streak within that period, recent contribution days and public repository languages.">
+</picture>
+</a>
+
 <picture>
   <source media="(max-width: 600px)" srcset="assets/profile/system-hero-mobile.svg">
   <img src="assets/profile/system-hero.svg" width="100%" alt="Skandar / JPEG111. Infrastructure, local AI and visual software.">
@@ -13,11 +20,13 @@
   <a href="#user-content-github-activity"><kbd>Arcade</kbd></a>
 </p>
 
-**Skandar · developer · Netherlands**
+### Skandar · Software developer
 
-I build desktop software, deployment tooling and AI tools. I tend to follow a problem past the interface: what owns the state, what breaks when a connection drops, and how do the pieces fit together?
+<sub>Netherlands · Desktop software / infrastructure / AI</sub>
 
-That has taken me from hosting apps on spare phones to voice pipelines, searchable media libraries and visual editors. Here are the parts worth opening up.
+I turn **spare hardware into servers**, **saved media into searchable libraries**, and **AI models into tools you can use**.
+
+I care about **what happens after the demo**: a connection drops, models compete for GPU memory, a document reflows, or a desktop interface changes. That’s where a lot of my work happens.
 
 <a id="selected-systems"></a>
 
@@ -30,11 +39,14 @@ That has taken me from hosting apps on spare phones to voice pipelines, searchab
 </picture>
 </a>
 
-**A deployment platform for hardware you own.** Deploy to Android / Termux, Raspberry Pi, Linux and Windows / WSL2. The app brings framework detection, builds, nginx, PM2, TLS and Cloudflare routing into one workflow.
+### Deploy on hardware you own.
 
-The interesting part is what happens after the first successful deploy: inspecting services, handling disconnects and resuming interrupted work.
+From a repository to a running app on **Android / Termux, Raspberry Pi, Linux or Windows / WSL2**. Framework detection, builds, `nginx`, `PM2`, TLS and Cloudflare routing share one workflow.
 
-**In the Studio development build:** live websites remain interactive on 3D device screens. Page layout stays fixed while render density changes, and the same occlusion boundary controls both what you see and what you can click.
+**When Wi-Fi drops, the deployment can reconnect and resume.** Services and routes stay inspectable after the first successful build.
+
+> **Studio / development build**
+> Live websites stay interactive on 3D device screens. **Fixed page layout, variable render density.** Visual occlusion and click boundaries agree, including where the device hides part of a screen.
 
 [Project →](https://github.com/JPEG111/anydeploy-releases) · [Windows / Linux downloads](https://github.com/JPEG111/anydeploy-releases/releases/latest) · [Under the hood](docs/ENGINEERING.md#anydeploy)
 
@@ -45,9 +57,11 @@ The interesting part is what happens after the first successful deploy: inspecti
 </picture>
 </a>
 
-**A Windows app for supported Discord Quests.** Orbs combines discovery, queue management, an English / Egyptian Arabic interface, tray controls and updates.
+### Automation that checks the state.
 
-Underneath the UI: semantic control discovery, bounded retries, deadlines that survive interruptions, and checks before repeating an uncertain action.
+A Windows app for supported Discord Quests, with **discovery, queues, tray controls and updates** in English and Egyptian Arabic.
+
+**Observe → act → verify.** Semantic control discovery, bounded retries and retained deadlines keep the workflow tied to what the client actually shows. An uncertain action needs a check before it is repeated.
 
 [Project →](https://github.com/JPEG111/orbs-release) · [Windows download](https://github.com/JPEG111/orbs-release/releases/latest) · [State and recovery](docs/ENGINEERING.md#orbs)
 
@@ -58,9 +72,11 @@ Underneath the UI: semantic control discovery, bounded retries, deadlines that s
 </picture>
 </a>
 
-**Saved media becomes a library you can actually search.** InstaVault imports posts and shared media, adds local AI tagging, OCR and embeddings, then exposes the collection through graph, fuzzy and semantic search.
+### Find the thing you saved.
 
-Electron wraps a React / FastAPI app. Optional transcription runs in a separate Python process so its ML dependencies stay apart from the frozen backend.
+Import posts and shared media, enrich them with **local AI tagging, OCR and embeddings**, then explore through **graph, fuzzy and semantic search**.
+
+`Electron` + `React` + `FastAPI`. Optional transcription uses **its own Python process**, keeping its ML dependencies separate from the frozen backend.
 
 [Project →](https://github.com/JPEG111/InstaVault-Releases) · [Windows download](https://github.com/JPEG111/InstaVault-Releases/releases/latest) · [Pipeline and packaging](docs/ENGINEERING.md#instavault)
 
@@ -68,14 +84,18 @@ Electron wraps a React / FastAPI app. Optional transcription runs in a separate 
 
 ## Inside the lab
 
-Local builds and experiments, with their own engineering problems.
+Working local builds and experiments. Each explores a different constraint.
 
 <picture>
   <source media="(max-width: 600px)" srcset="assets/profile/system-jarvis-mobile.svg">
   <img src="assets/profile/system-jarvis.svg" width="100%" alt="JARVIS: wake word, speech recognition, model and tool routing, streamed text-to-speech.">
 </picture>
 
-**JARVIS — voice, vision and tools on a shared GPU.** Wake word → VAD → Whisper → LangGraph routing → streamed Chatterbox speech. The work includes sentence queues, model fallbacks, persistent project state and unloading speech models before heavier vision work.
+### JARVIS · Voice, vision and a shared GPU
+
+Wake word → VAD → `Whisper` → `LangGraph` → streamed `Chatterbox` speech.
+
+**Start speaking while the answer is still arriving.** Sentence queues separate generation from playback; model fallbacks and saved project state carry the workflow. Heavier vision work can unload speech models to recover GPU memory.
 
 [Voice pipeline and memory tradeoffs →](docs/ENGINEERING.md#jarvis)
 
@@ -84,7 +104,11 @@ Local builds and experiments, with their own engineering problems.
   <img src="assets/profile/system-lumina.svg" width="100%" alt="Lumina: one typed document model connects AI edits, pointer layout controls, pagination and print.">
 </picture>
 
-**Lumina Resume Architect — document editing beyond a chat box.** Unstructured text becomes typed resume data shared across twelve templates. AI edits, pointer-based layout controls, pagination and native browser printing work from that same document.
+### Lumina · Edit the document directly
+
+Unstructured text becomes **one typed document shared across twelve templates**. AI edits and pointer controls operate on the same data.
+
+**A drag can change the page.** Layout overrides, text wrapping, pagination and native browser print have to work together.
 
 [Layout, reflow and print →](docs/ENGINEERING.md#lumina)
 
@@ -93,14 +117,20 @@ Local builds and experiments, with their own engineering problems.
   <img src="assets/profile/system-luminal.svg" width="100%" alt="Luminal: camera-angle controls route images through single-shot or multi-stage generation.">
 </picture>
 
-**Luminal — a visual interface for multi-angle image generation.** Named camera angles and an orbit control feed model routing. Small edits can use a single call; another path separates subject extraction, environment generation, posing, compositing and face refinement, with reusable session caches.
+### Luminal · Give the camera a direction
+
+Named angles and an orbit control feed image-model requests. Choose **a single call or a six-stage pipeline** that separates subject, environment, pose, composite and face refinement.
+
+**Reuse the expensive preparation.** Session caches retain source and subject analysis until the input changes.
 
 [Spatial controls and generation pipelines →](docs/ENGINEERING.md#luminal)
 
 <details>
 <summary><b>Also building: OmniAgent — a local action layer for AI tools</b></summary>
 
-Workspace boundaries, hash-checked edits, durable task state and inspectable receipts. The difficult part is connecting useful actions to explicit access and recovery behavior. It remains a local build; clean-machine acceptance and public distribution are separate work.
+**Workspace boundaries. Hash-checked edits. Durable task state.** Receipts make local AI actions inspectable, with explicit access and recovery behavior.
+
+Local build; clean-machine acceptance and public distribution remain separate work.
 
 [Architecture notes →](docs/ENGINEERING.md#omniagent)
 
@@ -115,7 +145,7 @@ Workspace boundaries, hash-checked edits, durable task state and inspectable rec
 
 ## Languages & tools
 
-The stack I work with across software, infrastructure and creative projects.
+Across the desktop apps, services and creative tools.
 
 **Languages**
 
@@ -156,18 +186,7 @@ The stack I work with across software, infrastructure and creative projects.
   <img src="assets/profile/system-arcade.svg" width="100%" alt="After the build: GitHub activity and the Pac-Man contribution arcade.">
 </picture>
 
-## GitHub activity
-
-<div align="center">
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=JPEG111&theme=dracula" alt="Languages in my public GitHub repositories">
-<img src="https://streak-stats.demolab.com?user=JPEG111&theme=dracula&hide_border=true" alt="GitHub contribution streak">
-
-</div>
-
-<sub>Language and contribution cards reflect public GitHub activity.</sub>
-
-### The contribution arcade
+## The contribution arcade
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph-dark.svg">
@@ -175,6 +194,6 @@ The stack I work with across software, infrastructure and creative projects.
   <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/output/pacman-contribution-graph.svg" width="100%" alt="Pac-Man eating my GitHub contribution graph.">
 </picture>
 
-<p align="center"><img src="https://komarev.com/ghpvc/?username=JPEG111&style=flat-square&color=6366f1&label=profile+views" alt="Profile view counter"></p>
+<p align="center"><img src="https://komarev.com/ghpvc/?username=JPEG111&style=flat-square&color=c5ff5c&label=profile+views" alt="Profile view counter"></p>
 
 <p align="center"><a href="#user-content-top">↑ Back to top</a></p>
