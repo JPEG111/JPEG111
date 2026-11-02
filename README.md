@@ -2,8 +2,8 @@
 
 <a href="https://github.com/search?q=author%3AJPEG111+is%3Apublic&amp;type=commits">
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter-mobile.svg?v=4">
-  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter.svg?v=4" width="100%" alt="Public and private indexed commit counts, with a separate private verification timestamp, cumulative public history and a language icon ranked by public code bytes. Open the public commit search.">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter-mobile.svg?v=6">
+  <img src="https://raw.githubusercontent.com/JPEG111/JPEG111/profile-activity/commit-counter.svg?v=6" width="100%" alt="Total indexed commits across all years: public plus private, with side-by-side public and private counts, a private verification timestamp, public history and the leading public language. Open the public commit search.">
 </picture>
 </a>
 

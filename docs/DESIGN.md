@@ -45,7 +45,7 @@ The workflow uses the existing repository token and contents permission. Public 
 
 ## Private commit aggregate and language icon
 
-The commit panel keeps the public and private indexed counts separate. The cumulative curve remains public-only; no deduplicated combined total is claimed. Private commit search has the same default-branch/indexing limits and covers private matches visible to the authenticated owner. Local-only and unindexed work is excluded.
+The commit panel leads with TOTAL COMMITS: the sum of the real all-year public and private indexed search counts. Public and private breakdowns sit side by side. The cumulative curve remains clearly public-only because private monthly history is not collected. The total combines the latest snapshots at their respective verification times; it is not a unique-SHA union across repositories or all branches. Private commit search has the same default-branch/indexing limits and covers private matches visible to the authenticated owner. Local-only and unindexed work is excluded.
 
 The owner explicitly approved publication of the aggregate private count. A small local collector verifies the signed-in account, asks GitHub CLI for only total_count/incomplete_results, and publishes an allowlisted private-metrics.json containing the count, scope and its own UTC timestamp. Repository names, commit messages, hashes, URLs and credentials are excluded. The public Actions job consumes this aggregate and never receives a private-access credential.
 
