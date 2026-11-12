@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "total": 106,
   "current": 0,
   "best": 5,
@@ -71,7 +71,7 @@
       },
       {
         "start": "2026-11-01",
-        "end": "2026-11-11",
+        "end": "2026-11-12",
         "count": 24
       }
     ],
@@ -125,7 +125,7 @@
         "value": 84
       },
       {
-        "date": "2026-11-11",
+        "date": "2026-11-12",
         "value": 108
       }
     ]
@@ -147,10 +147,6 @@
     }
   ],
   "recentDays": [
-    {
-      "date": "2026-09-17",
-      "contributionCount": 0
-    },
     {
       "date": "2026-09-18",
       "contributionCount": 0
@@ -369,6 +365,10 @@
     },
     {
       "date": "2026-11-11",
+      "contributionCount": 0
+    },
+    {
+      "date": "2026-11-12",
       "contributionCount": 0
     }
   ],
